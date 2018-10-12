@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900');
+@import "./_settings.scss";
+
+
+body {
+    font-family: $fontfamily !important;
+    // font-weight: 700;
+    letter-spacing: 1px;
+    color: white;
+    background: $blueish;
+}
+
+.ui.button {
+    &.btn-ccs {
+        background: $toscagrad;
+        color: white;
+        transition: all .5s ease;
+        &:hover {
+            background: $toscagrad-reverse
+        }
+        &:focus {
+            background: transparent !important;
+        }
+    }
+    &.basic {
+        color: white !important;
+        box-shadow: white !important;
+        &.link-btn {
+            border: none !important;
+            box-shadow: none !important;
+            &:hover {
+                background: transparent !important;
+                text-decoration: underline;
+                color: inherit !important;
+            }
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $fontfamily !important;
+    color: white;
+}
+
+.ui.header {
+    color: white;
+}
+
+.ui.grid {
+    &.main-app {
+        background-repeat: no-repeat;
+        background-size: 450px;
+        background-position: right bottom;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYxIiBoZWlnaHQ9Ijg0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPiAgPGRlZnM+ICAgIDxsaW5lYXJHcmFkaWVudCB4MT0iOS43ODElIiB5MT0iOS4zNTQlIiB4Mj0iODAuOTIyJSIgeTI9IjkyLjg4MSUiIGlkPSJhIj4gICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjQ0REOUU1IiBvZmZzZXQ9IjAlIi8+ICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iI0NERDlFNSIgc3RvcC1vcGFjaXR5PSIwIiBvZmZzZXQ9IjEwMCUiLz4gICAgPC9saW5lYXJHcmFkaWVudD4gIDwvZGVmcz4gIDxwYXRoIGQ9Ik05NjYuOTE0IDEyNkg3NzQuOTU3Yy0uNTcyLTExLjMxLjY3NC0yMy4wMzMgMy4wMzEtMzQuMTIxQzgwMS4wNi0xNi42NjEgODY4LjM1NSA4MC4zOTUgOTY2LjkxNCAxMjZ6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNzc0IC00MikiIGZpbGw9InVybCgjYSkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbC1vcGFjaXR5PSIuMzIiLz48L3N2Zz4=);
+    }
+    &.home {
+        height: 100vh !important;
+        > .column {
+            position: relative;
+            margin-top: -5em;
+        }
+        .container {
+            margin-bottom: $baseSize * 5;
+            .ui.header + p {
+                margin-bottom: $baseSize * 3;
+            }
+        }
+        .welcome {
+            font-size: $baseSize * 8;
+            line-height: 1;
+        }
+        .summary-home {
+            .container {
+                margin-bottom: $baseSize * 3;
+            }
+        }
+    }
+}
+
+.ui.form {
+    &.main-form {
+        label {
+            color: white;
+        }
+        .error-text {
+            color: $reddish;
+            position: relative;
+            top: -10px;
+            font-size: .8em;
+        }
+    } 
+}
+
+.ui.segment {
+    &.main-segment {
+        background: rgba(56, 40, 163, 0.34901960784313724);
+        border-radius: 9px;
+        border: none;
+    }
+}
+
+.navigator {
+    margin-bottom: $baseSize * 5;
+    .link-btn {
+        padding-left: 0 !important;
+    }
+}
+
+.heading {
+    margin-bottom: $baseSize * 4;
+    .ui.header {
+        margin-bottom: 0;
+    }
+}
+
+.summary-home {
+    .segment {
+        .header {
+            color: $tosca !important;
+        }
+    }
+    .list {
+        .content {
+            color: #ddd !important;
+            text-align: left;
+        }
+    }
+}
