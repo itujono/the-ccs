@@ -75,6 +75,12 @@ h1, h2, h3, h4, h5, h6 {
             }
         }
     }
+    &.page-home {
+        padding-top: $baseSize * 4;
+        .row {
+            margin-bottom: $baseSize * 5 ;
+        }
+    }
 }
 
 .ui.form {
@@ -153,5 +159,19 @@ h1, h2, h3, h4, h5, h6 {
         &:active {
             transform: translateY(4px) !important;
         }
+    }
+}
+
+.sidebar {
+    .ui.list.selected-list {
+        .content {
+            .header {
+                color: $tosca !important;
+                margin-bottom: .5em;
+            }
+        }
+    }
+    .ui.header {
+        margin-bottom: $baseSize * 2;
     }
 }

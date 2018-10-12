@@ -22,7 +22,7 @@ class Features extends React.Component {
         const { items, selected } = this.props
 
         return (
-            <Grid centered padded>
+            <Grid centered relaxed="very" className="page-home">
                 <Switch>
                     <Redirect exact from="/features" to="/features/home" />
                     <Route
@@ -37,7 +37,7 @@ class Features extends React.Component {
 
 const mapState = ({ home }) => ({
     items: home.items,
-    selected: home.selected
+    selected: home.selected,
 })
 
 export default connect(mapState, { saveHomeFeatures, deleteHomeFeatures })(Features)

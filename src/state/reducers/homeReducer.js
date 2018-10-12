@@ -17,10 +17,12 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
         case SAVE_HOME_FEATURES:
-            return { ...state, items: [ ...state.items ], selected: [...state.selected, action.payload ] }
+            return {
+                ...state,
+                items: [ ...state.items ],
+                selected: [...state.selected, action.payload ]
+            }
         case DELETE_HOME_FEATURES:
-            console.log(state.selected)
-            console.log(action.payload)
             return { ...state, selected: state.selected.filter(item => item.id !== action.payload) }
         default:
             return state
