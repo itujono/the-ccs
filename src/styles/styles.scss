@@ -151,8 +151,12 @@ h1, h2, h3, h4, h5, h6 {
                 color: #eee !important;
             }
         }
+        .header {
+            margin-bottom: .4em !important;
+            line-height: 1.1em !important;
+        }
         &:hover {
-            background: #f9f9f9 !important;
+            opacity: .8;
             transform: translateY(-2px) !important;
             box-shadow: none !important;
         }
@@ -164,6 +168,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .sidebar {
     .ui.list.selected-list {
+        margin-bottom: $baseSize * 4;
         .content {
             .header {
                 color: $tosca !important;

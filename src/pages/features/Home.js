@@ -54,10 +54,10 @@ class Home extends React.Component {
                                 })
                             }
                         </List>
-                        <Container>
+                        { selected && selected.length > 0 ? <Container>
                             Estimasi total
                             <Header as="h4" content={total ? 'Rp ' + total + ',00' : 0} />
-                        </Container>
+                        </Container> : <p>Hmm, silakan pilih fitur-fitur nya ya.</p>}
                     </Grid.Column>
                     <Grid.Column width={10}>
                         <Container>
