@@ -5,7 +5,7 @@ import { Card, Transition, Button } from "semantic-ui-react";
 const CardItem = ({ item, className, handleSelectItem, selectedItem, inArray }) => {
 
     const matched = item.id && selectedItem && item.id === selectedItem.id
-    const cardClass = `card-item ${className ? className : ''} ${matched || inArray ? 'selected' : ''}`
+    const cardClass = `card-item ${className ? className : ''} ${inArray ? 'selected' : ''}`
 
     return (
         <Card onClick={() => handleSelectItem(item)} className={cardClass}>

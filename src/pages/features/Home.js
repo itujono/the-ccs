@@ -8,10 +8,18 @@ class Home extends React.Component {
 
     state = { expanded: false, selectedItem: null }
 
+
     handleSelectItem = (selectedItem) => {
-        console.log(selectedItem)
+        const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
+
         this.setState({ selectedItem })
-        this.props.handleSaveHome(selectedItem)
+
+        if (selected) {
+            this.props.handleDelete(selected.id)
+        } else {
+            this.props.handleSaveHome(selectedItem)
+        }
+
     }
 
     handleBlur = () => this.setState({ expanded: false })
@@ -35,7 +43,7 @@ class Home extends React.Component {
                             {
                                 selected && selected.map(item => {
                                     return (
-                                        <List.Item>
+                                        <List.Item key={item.id}>
                                             <List.Content>
                                                 <List.Header as='a'>{item.name}</List.Header>
                                                 {item.description}
