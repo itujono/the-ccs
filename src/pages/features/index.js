@@ -8,6 +8,11 @@ import Home from "./Home";
 
 
 class Features extends React.Component {
+
+    handleSaveHomeFeatures = (data) => {
+        this.props.saveHomeFeatures(data)
+    }
+
     render() {
 
         const { items, selected } = this.props
@@ -16,7 +21,7 @@ class Features extends React.Component {
             <Grid centered padded>
                 <Switch>
                     <Redirect exact from="/features" to="/features/home" />
-                    <Route path="/features/home" render={() => <Home items={items} selected={selected} />} />
+                    <Route path="/features/home" render={() => <Home items={items} handleSaveHome={this.handleSaveHomeFeatures} selected={selected} />} />
                 </Switch>
             </Grid>
         )
