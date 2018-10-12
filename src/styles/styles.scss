@@ -126,3 +126,32 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 }
+
+.ui.card {
+    &.card-item {
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, .08);
+        cursor: pointer;
+        transition: all .1s ease;
+        &.selected {
+            background: rgba(41, 36, 70, 0.47) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: none !important;
+            .header {
+                color: $tosca !important;
+            }
+            .description, .meta {
+                color: #eee !important;
+            }
+        }
+        &:hover {
+            background: #f9f9f9 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: none !important;
+        }
+        &:active {
+            transform: translateY(4px) !important;
+        }
+    }
+}

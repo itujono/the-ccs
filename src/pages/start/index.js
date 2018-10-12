@@ -2,7 +2,6 @@ import React from "react"
 import { Grid, Container, Header, Card, Button } from "semantic-ui-react"
 import { connect } from "react-redux"
 import { Switch, Route, Link } from "react-router-dom";
-import { helloWorld } from "../../state/actions/helloActions";
 import { savePersonalInfo } from "../../state/actions/userActions";
 import Posed, { PoseGroup } from "react-pose";
 import bni from "../../images/bni.png"
@@ -33,10 +32,6 @@ const RouteContainer = Posed.div({
 
 
 class Start extends React.Component {
-
-    componentDidMount() {
-        this.props.helloWorld()
-    }
 
     handleSaveUserInfo = (data) => {
         this.props.savePersonalInfo(data)
@@ -86,4 +81,4 @@ const mapState = ({ hello, user }) => ({
     user: user.user
 })
 
-export default connect(mapState, { helloWorld, savePersonalInfo })(Start)
+export default connect(mapState, { savePersonalInfo })(Start)
