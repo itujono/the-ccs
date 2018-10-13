@@ -2,10 +2,19 @@ import React from "react"
 import { Grid, Header } from "semantic-ui-react"
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial } from "../../state/actions/homeActions";
-import Home from "./Home";
+import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial } from "../../state/actions/homeActions"
+import { saveTotalCart } from "../../state/actions/cartActions";
+import Home from "./Home"
+import Posed, { PoseGroup } from "react-pose";
 
 
+
+
+
+const RouteContainer = Posed.div({
+    enter: { opacity: 1, y: 0, delay: 200, beforeChildren: true },
+    exit: { opacity: 0, y: 20 }
+})
 
 class Features extends React.Component {
 
@@ -17,35 +26,48 @@ class Features extends React.Component {
         this.props.deleteHomeFeatures(id)
     }
 
+    handleSaveTotalCart = (total) => {
+        this.props.saveTotalCart(total)
+        this.props.history.push('/features/product_detail')
+    }
+
     render() {
 
-        const { items, selected } = this.props
+        const { items, selected, location } = this.props
 
         return (
-            <Grid centered relaxed="very" className="page-home">
-                <Switch>
-                    <Redirect exact from="/features" to="/features/home" />
-                    <Route
-                        path="/features/home"
-                        render={() =>
-                            <Home
-                                items={items}
-                                handleDelete={this.handleDeleteHomeFeatures}
-                                handleSaveHome={this.handleSaveHomeFeatures}
-                                fetchInitialItems={this.props.fetchInitialItems}
-                                makeInitial={this.props.makeInitial}
-                                selected={selected}
-                            />}
-                    />
-                </Switch>
-            </Grid>
+            <PoseGroup>
+                <RouteContainer key={location.pathname} centered relaxed="very" className="ui centered very relaxed grid page-home">
+                    <Switch location={location}>
+                        <Redirect exact from="/features" to="/features/home" />
+                        <Route
+                            path="/features/home"
+                            render={() =>
+                                <Home
+                                    key="home"
+                                    items={items}
+                                    handleDelete={this.handleDeleteHomeFeatures}
+                                    handleSaveHome={this.handleSaveHomeFeatures}
+                                    fetchInitialItems={this.props.fetchInitialItems}
+                                    makeInitial={this.props.makeInitial}
+                                    saveTotalCart={this.handleSaveTotalCart}
+                                    selected={selected}
+                                />
+                            }
+                        />
+                    </Switch>
+                </RouteContainer>
+            </PoseGroup>
         )
     }
 }
 
-const mapState = ({ home }) => ({
+const mapState = ({ home, cart }) => ({
     items: home.items,
     selected: home.selected,
+    total: cart.total
 })
 
-export default connect(mapState, { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial })(Features)
+const actionList = { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial, saveTotalCart }
+
+export default connect(mapState, actionList)(Features)

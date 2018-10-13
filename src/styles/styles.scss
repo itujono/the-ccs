@@ -144,7 +144,7 @@ h1, h2, h3, h4, h5, h6 {
     &.card-item {
         padding: 15px;
         border-radius: 12px;
-        box-shadow: 1px 5px 10px rgba(0, 0, 0, .08);
+        box-shadow: $boxShadow;
         cursor: pointer;
         transition: all .1s ease;
         &.selected {
@@ -180,8 +180,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar {
+    padding-top: $baseSize * 4;
     .ui.list.selected-list {
-        margin-bottom: $baseSize * 4;
+        margin-bottom: $baseSize * 2;
         .content {
             .header {
                 color: $tosca !important;
@@ -191,5 +192,12 @@ h1, h2, h3, h4, h5, h6 {
     }
     .ui.header {
         margin-bottom: $baseSize * 2;
+    }
+    .next-page {
+        margin-top: $baseSize * 7;
+        p {
+            font-size: .9em;
+            margin-bottom: 0 !important;
+        }
     }
 }

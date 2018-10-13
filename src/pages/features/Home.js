@@ -1,7 +1,19 @@
 import React from "react"
 import { Grid, Header, Container, Card, List, Button, Icon } from "semantic-ui-react"
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import CardItem from "../../components/CardItem"
+import Posed from "react-pose"
+
+
+
+const PosedList = Posed.div({
+    enter: { staggerChildren: 80 }
+})
+
+const ListItem = Posed.div({
+    enter: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 }
+})
 
 
 
@@ -33,21 +45,21 @@ class Home extends React.Component {
         const { selected } = this.props
 
         const selectedItems = selected && selected.map(item => (
-            <List.Item key={item.id}>
+            <ListItem className="item" key={item.id}>
                 <List.Content>
                     <List.Header as='a'>{item.name}</List.Header>
                     Rp {item.price},00
                 </List.Content>
-            </List.Item>
+            </ListItem>
         ))
 
         const initialItems = selected && selected.filter(item => item.default).map(item => (
-            <List.Item key={item.id}>
+            <ListItem className="item" key={item.id}>
                 <List.Content>
                     <List.Header as='a'>{item.name}</List.Header>
                     Rp {item.price},00
                 </List.Content>
-            </List.Item>
+            </ListItem>
         ))
 
         return this.state.initial ? initialItems : selectedItems
@@ -59,7 +71,7 @@ class Home extends React.Component {
     }
 
     render() {
-        const { items, selected } = this.props
+        const { items, selected, saveTotalCart } = this.props
         const { selectedItem } = this.state
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
@@ -76,15 +88,16 @@ class Home extends React.Component {
                 <Grid.Row>
                     <Grid.Column width={4} className="sidebar">
                         <Header as="h4" content="Fitur-fitur yang kamu pilih" />
-                        <List bulleted divided relaxed="very" verticalAlign='middle' className="selected-list">
+                        {/* <List bulleted divided relaxed="very" verticalAlign='middle' className="selected-list"> */}
+                        <PosedList className="ui bulleted divided very relaxed middle aligned list selected-list">
                             { this.handleRenderItems() }
-                        </List>
+                        </PosedList>
                         { selected && selected.length > 0 ? <Container>
                             Estimasi total
                             <Header as="h4" content={total ? 'Rp ' + total + ',00' : 0} />
-                            <div style={{ marginTop: '2em' }}>
-                                <p>Udah ngerasa puas sama fitur-fitur yang dipilih?</p> <br />
-                                <Button as={Link} to="/features/product_detail" icon labelPosition='right' className="btn-ccs">
+                            <div className="next-page">
+                                <p>Puas sama fitur-fitur yang dipilih?</p> <br />
+                                <Button onClick={() => saveTotalCart(total)} icon labelPosition='right' className="btn-ccs">
                                     Lanjut ke Product Detail <Icon name='chevron right' />
                                 </Button>
                             </div>

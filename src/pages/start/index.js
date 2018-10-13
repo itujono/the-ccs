@@ -28,7 +28,7 @@ const images = [
 const RouteContainer = Posed.div({
     enter: { opacity: 1, y: 0, delay: 200, beforeChildren: true },
     exit: { opacity: 0, y: 20 }
-});
+})
 
 
 class Start extends React.Component {
