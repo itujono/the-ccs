@@ -1,4 +1,4 @@
-import { SAVE_HOME_FEATURES, DELETE_HOME_FEATURES, FETCH_INITIAL_ITEMS } from "../constants";
+import { SAVE_HOME_FEATURES, DELETE_HOME_FEATURES, FETCH_INITIAL_ITEMS, MAKE_INITIAL } from "../constants";
 
 const initialState = {
     items: [
@@ -29,6 +29,8 @@ export default (state = initialState, action) => {
                 ...state,
                 selected: action.payload ? state.items.filter(item => item.default) : state.selected
             }
+        case MAKE_INITIAL:
+            return { ...state, selected: state.items.filter(item => item.default) }
         default:
             return state
     }

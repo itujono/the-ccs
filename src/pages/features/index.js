@@ -2,7 +2,7 @@ import React from "react"
 import { Grid, Header } from "semantic-ui-react"
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems } from "../../state/actions/homeActions";
+import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial } from "../../state/actions/homeActions";
 import Home from "./Home";
 
 
@@ -33,6 +33,7 @@ class Features extends React.Component {
                                 handleDelete={this.handleDeleteHomeFeatures}
                                 handleSaveHome={this.handleSaveHomeFeatures}
                                 fetchInitialItems={this.props.fetchInitialItems}
+                                makeInitial={this.props.makeInitial}
                                 selected={selected}
                             />}
                     />
@@ -47,4 +48,4 @@ const mapState = ({ home }) => ({
     selected: home.selected,
 })
 
-export default connect(mapState, { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems })(Features)
+export default connect(mapState, { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial })(Features)

@@ -1,6 +1,7 @@
 import React from "react"
-import { Grid, Header, Container, Card, List } from "semantic-ui-react"
-import CardItem from "../../components/CardItem";
+import { Grid, Header, Container, Card, List, Button, Icon } from "semantic-ui-react"
+import { Link } from "react-router-dom";
+import CardItem from "../../components/CardItem"
 
 
 
@@ -29,7 +30,7 @@ class Home extends React.Component {
     handleBlur = () => this.setState({ expanded: false })
 
     handleRenderItems = () => {
-        const { selected, items } = this.props
+        const { selected } = this.props
 
         const selectedItems = selected && selected.map(item => (
             <List.Item key={item.id}>
@@ -40,7 +41,7 @@ class Home extends React.Component {
             </List.Item>
         ))
 
-        const initialItems = items && items.filter(item => item.default).map(item => (
+        const initialItems = selected && selected.filter(item => item.default).map(item => (
             <List.Item key={item.id}>
                 <List.Content>
                     <List.Header as='a'>{item.name}</List.Header>
@@ -50,6 +51,11 @@ class Home extends React.Component {
         ))
 
         return this.state.initial ? initialItems : selectedItems
+    }
+
+    handleMakeInitial = () => {
+        this.props.makeInitial()
+        this.setState({ initial: true })
     }
 
     render() {
@@ -76,9 +82,24 @@ class Home extends React.Component {
                         { selected && selected.length > 0 ? <Container>
                             Estimasi total
                             <Header as="h4" content={total ? 'Rp ' + total + ',00' : 0} />
+                            <div style={{ marginTop: '2em' }}>
+                                <p>Udah ngerasa puas sama fitur-fitur yang dipilih?</p> <br />
+                                <Button as={Link} to="/features/product_detail" icon labelPosition='right' className="btn-ccs">
+                                    Lanjut ke Product Detail <Icon name='chevron right' />
+                                </Button>
+                            </div>
                         </Container> : <p>Hmm, silakan pilih fitur-fitur nya ya.</p>}
                     </Grid.Column>
                     <Grid.Column width={10}>
+                        <Container textAlign="right" style={{ marginBottom: '2em' }}>
+                            <Button
+                                content="Pilihan yang direkomendasikan"
+                                className="btn-ccs"
+                                icon="checkmark"
+                                disabled={this.state.initial}
+                                onClick={this.handleMakeInitial}
+                            />
+                        </Container>
                         <Container>
                             <Card.Group itemsPerRow={3}>
                             {
