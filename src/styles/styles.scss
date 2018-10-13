@@ -10,6 +10,10 @@ body {
     background: $blueish;
 }
 
+span.tosca {
+    color: $tosca !important;
+}
+
 .ui.button {
     &.btn-ccs {
         background: $toscagrad;
@@ -44,6 +48,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .ui.header {
     color: white;
+    &.heading {
+        font-size: $baseSize * 4;
+    }
 }
 
 .ui.grid {

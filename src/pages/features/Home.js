@@ -6,13 +6,17 @@ import CardItem from "../../components/CardItem";
 
 class Home extends React.Component {
 
-    state = { expanded: false, selectedItem: null }
+    state = { initial: true, selectedItem: null }
+
+    componentDidMount() {
+        this.props.fetchInitialItems(this.state.initial)
+    }
 
 
     handleSelectItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
 
-        this.setState({ selectedItem })
+        this.setState({ selectedItem, initial: false })
 
         if (selected) {
             this.props.handleDelete(selected.id)
@@ -24,6 +28,30 @@ class Home extends React.Component {
 
     handleBlur = () => this.setState({ expanded: false })
 
+    handleRenderItems = () => {
+        const { selected, items } = this.props
+
+        const selectedItems = selected && selected.map(item => (
+            <List.Item key={item.id}>
+                <List.Content>
+                    <List.Header as='a'>{item.name}</List.Header>
+                    Rp {item.price},00
+                </List.Content>
+            </List.Item>
+        ))
+
+        const initialItems = items && items.filter(item => item.default).map(item => (
+            <List.Item key={item.id}>
+                <List.Content>
+                    <List.Header as='a'>{item.name}</List.Header>
+                    Rp {item.price},00
+                </List.Content>
+            </List.Item>
+        ))
+
+        return this.state.initial ? initialItems : selectedItems
+    }
+
     render() {
         const { items, selected } = this.props
         const { selectedItem } = this.state
@@ -33,7 +61,9 @@ class Home extends React.Component {
             <React.Fragment>
                 <Grid.Row>
                     <Grid.Column width={14}>
-                        <Header as="h3" content="Bagian: Home" />
+                        <Header as="h2" className="heading">
+                            Bagian: <span className="tosca">Home</span>
+                        </Header>
                         Aku akan menyadarkan Pak Prabowo bahwa dia adalah anak Indonesia.
                     </Grid.Column>
                 </Grid.Row>
@@ -41,18 +71,7 @@ class Home extends React.Component {
                     <Grid.Column width={4} className="sidebar">
                         <Header as="h4" content="Fitur-fitur yang kamu pilih" />
                         <List bulleted divided relaxed="very" verticalAlign='middle' className="selected-list">
-                            {
-                                selected && selected.map(item => {
-                                    return (
-                                        <List.Item key={item.id}>
-                                            <List.Content>
-                                                <List.Header as='a'>{item.name}</List.Header>
-                                                Rp {item.price},00
-                                            </List.Content>
-                                        </List.Item>
-                                    )
-                                })
-                            }
+                            { this.handleRenderItems() }
                         </List>
                         { selected && selected.length > 0 ? <Container>
                             Estimasi total
