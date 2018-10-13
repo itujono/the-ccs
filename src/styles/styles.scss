@@ -151,8 +151,14 @@ h1, h2, h3, h4, h5, h6 {
             background: rgba(41, 36, 70, 0.47) !important;
             transform: translateY(-2px) !important;
             box-shadow: none !important;
+            transition: all .3s ease;
             .header {
                 color: $tosca !important;
+                &::before {
+                    content: '✔';
+                    margin-right: 6px;
+                    color: orange;
+                }
             }
             .description, .meta {
                 color: #eee !important;
