@@ -13,7 +13,10 @@ class Features extends React.Component {
     state = { initial: true, selectedItem: null }
 
     componentDidMount() {
-        this.props.fetchInitialItems(this.state.initial)
+        const { section } = this.props
+        const { initial } = this.state
+
+        if (section) this.props.fetchInitialItems(initial, section.id)
     }    
     
     handleSelectItem = (selectedItem) => {
@@ -37,10 +40,10 @@ class Features extends React.Component {
         this.setState({ initial: true })
     }
 
-    handleRenderItems = () => {
+    handleRenderFeatures = () => {
         const { selected } = this.props
 
-        const selectedItems = selected && selected.map(item => (
+        const selectedFeatures = selected && selected.map(item => (
             <List.Item className="item" key={item.id}>
                 <List.Content>
                     <List.Header as='a'>{item.name}</List.Header>
@@ -49,7 +52,7 @@ class Features extends React.Component {
             </List.Item>
         ))
 
-        const initialItems = selected && selected.filter(item => item.default).map(item => (
+        const initialFeatures = selected && selected.filter(item => item.default).map(item => (
             <List.Item className="item" key={item.id}>
                 <List.Content>
                     <List.Header as='a'>{item.name}</List.Header>
@@ -58,7 +61,7 @@ class Features extends React.Component {
             </List.Item>
         ))
 
-        return this.state.initial ? initialItems : selectedItems
+        return this.state.initial ? initialFeatures : selectedFeatures
     }
 
     handleSaveTotalCart = (total) => {
@@ -67,12 +70,12 @@ class Features extends React.Component {
     }
 
     render() {
-        const { items, selected, features } = this.props
+        const { selected, features } = this.props
         const { selectedItem } = this.state
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
         return (
-                <Grid  centered relaxed="very" className="page-home">
+                <Grid centered relaxed="very" className="page-home">
                     <Grid.Row>
                         <Grid.Column width={14}>
                             <Header as="h2" className="heading">
@@ -85,7 +88,7 @@ class Features extends React.Component {
                         <Grid.Column width={4} className="sidebar">
                             <Header as="h4" content="Fitur-fitur yang kamu pilih" />
                             <List bulleted divided relaxed="very" verticalAlign="middle" className="selected-list">
-                                { this.handleRenderItems() }
+                                { this.handleRenderFeatures() }
                             </List>
                             { selected && selected.length > 0 ? <Container>
                                 Estimasi total
@@ -137,16 +140,18 @@ const mapState = ({ home, cart }, ownProps) => {
 
     let section = {}
 
-    if (home.allFeatures && home.allFeatures.length > 0) {
-        section = home.allFeatures.filter(sec => sec.name.toLowerCase() === sectionName)[0]
+    if (home.allSections && home.allSections.length > 0) {
+        section = home.allSections.filter(sec => sec.name.toLowerCase() === sectionName)[0]
     }
 
+    const initialSelected = section && section.items && section.items.filter(item => item.default)
+
     return {
-        items: home.items,
         selected: home.selected,
         total: cart.total,
         features: section.items,
-        section
+        section,
+        initialSelected
     }
 }
 
