@@ -2,7 +2,7 @@ import React from "react"
 import { Card, Checkbox } from "semantic-ui-react";
 
 
-const CardItem = ({ item, className, handleSelectItem, subItems, hasSubItems, inArray }) => {
+const CardItem = ({ item, className, handleSelectItem, subItems, hasSubItems, inArray, onChangeItem }) => {
 
     const cardClass = hasSubItems ? "card-item no-click" : `card-item ${className ? className : ''} ${inArray ? 'selected' : ''}`
 
@@ -16,7 +16,12 @@ const CardItem = ({ item, className, handleSelectItem, subItems, hasSubItems, in
             {
                 hasSubItems && subItems && <Card.Content extra>
                     {subItems.map(sub => sub.map(hore => {
-                        if (hore.parent === item.name) return <div style={{ padding: '.3em 0' }}><Checkbox label={hore.name} /></div>
+                        if (hore.parent === item.name) {
+                            console.log(hore)
+                            return <div key={hore.id} style={{ padding: '.3em 0' }}>
+                                <Checkbox label={hore.name} onChange={() => onChangeItem(hore)} /> - <span>Rp {hore.price},00</span>
+                            </div>
+                        }
                     }))}
                 </Card.Content>
             }

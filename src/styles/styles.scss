@@ -14,6 +14,10 @@ span.tosca {
     color: $tosca !important;
 }
 
+.ui.checkbox input:checked~.box:after, .ui.checkbox input:checked~label:after {
+    color: $tosca !important;
+}
+
 .ui.button {
     &.btn-ccs {
         background: $toscagrad;
@@ -196,6 +200,10 @@ h1, h2, h3, h4, h5, h6 {
             .header {
                 color: $tosca !important;
                 margin-bottom: .5em;
+            }
+            .description {
+                color: white !important;
+                margin-bottom: .5em !important;
             }
         }
     }

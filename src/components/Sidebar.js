@@ -2,12 +2,12 @@ import React from "react"
 import { Grid, Header, List, Button, Container, Icon } from "semantic-ui-react";
 
 
-const Sidebar = ({ selected, saveTotalCart, total, renderSelected, nextSection }) => {
+const Sidebar = ({ selected, saveTotalCart, total, renderSelected, nextSection, hasSubItems, renderSelectedHasSubItems }) => {
     return (
         <Grid.Column width={4} className="sidebar">
             <Header as="h4" content="Fitur-fitur yang kamu pilih" />
             <List bulleted divided relaxed="very" verticalAlign="middle" className="selected-list">
-                { renderSelected() }
+                { hasSubItems ? renderSelectedHasSubItems() : renderSelected() }
             </List>
             { selected && selected.length > 0 ? <Container>
                 Estimasi total

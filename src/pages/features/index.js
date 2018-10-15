@@ -11,7 +11,7 @@ import { saveTotalCart, saveCartItems } from "../../state/actions/cartActions";
 
 class Features extends React.Component {
 
-    state = { initial: true, selectedItem: null }
+    state = { initial: true, selectedItem: null, hovered: false }
 
     componentDidMount() {
         const { section, initialSelected, selected } = this.props
@@ -62,9 +62,19 @@ class Features extends React.Component {
                 this.props.saveHomeFeatures(selectedItem)
                 this.props.fetchFeatures()
             }
-            
         }
+    }
+
+    handleOnChangeItem = (selectedItem) => {
+        const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
         
+        if (selected) {
+            this.props.deleteHomeFeatures(selected.id)
+        } else {
+            this.setState({ selectedItem, initial: false })
+            this.props.saveHomeFeatures(selectedItem)
+            this.props.fetchFeatures()
+        }
     }
     
     handleBlur = () => this.setState({ expanded: false })
@@ -100,17 +110,46 @@ class Features extends React.Component {
         return this.state.initial ? initialFeatures : selectedFeatures
     }
 
+    handleRenderSelectedHasSubItems = () => {
+        const { selected } = this.props
+
+        const selectedFeatures = selected && selected.map(item => (
+            <List.Item className="item" key={item.id}>
+                <List.Content>
+                    <List.Header as='a'>{item.parent}</List.Header>
+                    <List.Description>
+                        <p>{item.name}</p>
+                        Rp {item.price},00
+                    </List.Description>
+                </List.Content>
+            </List.Item>
+        ))
+
+        const initialFeatures = selected && selected.filter(item => item.default).map(item => (
+            <List.Item className="item" key={item.id}>
+                <List.Content>
+                    <List.Header as='a'>{item.parent}</List.Header>
+                    <List.Description>
+                        <p>{item.name}</p>
+                        Rp {item.price},00
+                    </List.Description>
+                </List.Content>
+            </List.Item>
+        ))
+
+        return this.state.initial ? initialFeatures : selectedFeatures
+
+    }
+
     handleSaveTotalCart = (total) => {
         const { nextSection, selected, section } = this.props
-        const name = section.name.toLowerCase().replace(' ', '_')
+        // const name = section.name.toLowerCase().replace(' ', '_')
 
         if (nextSection && selected) {
             this.props.saveTotalCart(this.props.total + total)
-            // this.props.saveCartItems({ [name]: selected }, name)
             this.props.saveCartItems(selected)
             this.props.history.push(`/features/${nextSection.toLowerCase()}`)
         }
-
     }
 
     render() {
@@ -119,7 +158,6 @@ class Features extends React.Component {
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
         const hasSubItems = subItems && subItems[0] !== undefined
 
-        console.log(this.props.cart || "Heheh")
 
         return (
                 <Grid centered relaxed="very" className="page-features">
@@ -139,7 +177,9 @@ class Features extends React.Component {
                             selected={selected}
                             saveTotalCart={this.handleSaveTotalCart}
                             total={total}
+                            hasSubItems={hasSubItems}
                             nextSection={nextSection}
+                            renderSelectedHasSubItems={this.handleRenderSelectedHasSubItems}
                             renderSelected={this.handleRenderSelected}
                         />
                         <Grid.Column width={10}>
@@ -162,9 +202,11 @@ class Features extends React.Component {
                                             item={item}
                                             inArray={inArray}
                                             key={item.id}
+                                            hovered={this.state.hovered}
                                             hasSubItems={hasSubItems}
                                             subItems={subItems}
                                             selectedItem={selectedItem}
+                                            onChangeItem={this.handleOnChangeItem}
                                             handleSelectItem={this.handleSelectItem}
                                         />
                                     })
