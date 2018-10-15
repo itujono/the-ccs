@@ -1,4 +1,4 @@
-import { SAVE_HOME_FEATURES, DELETE_HOME_FEATURES, FETCH_INITIAL_ITEMS, MAKE_INITIAL } from "../constants";
+import { SAVE_HOME_FEATURES, DELETE_HOME_FEATURES, FETCH_INITIAL_ITEMS, MAKE_INITIAL, FETCH_FEATURES } from "../constants";
 
 
 export const saveHomeFeatures = (data) => ({
@@ -13,6 +13,6 @@ export const fetchInitialItems = (initial) => ({
     type: FETCH_INITIAL_ITEMS, payload: initial
 })
 
-export const makeInitial = () => ({
-    type: MAKE_INITIAL
-})
+export const makeInitial = () => ({ type: MAKE_INITIAL })
+
+export const fetchFeatures = () => ({ type: FETCH_FEATURES })
