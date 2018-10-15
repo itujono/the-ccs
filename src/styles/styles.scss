@@ -18,6 +18,10 @@ span.tosca {
     color: $tosca !important;
 }
 
+.ui.checkbox input:checked~.box:before, .ui.checkbox input:checked~label:before {
+    border-color: $tosca !important;
+}
+
 .ui.button {
     &.btn-ccs {
         background: $toscagrad;
@@ -175,6 +179,9 @@ h1, h2, h3, h4, h5, h6 {
             cursor: initial !important;
             &:hover {
                 opacity: initial;
+            }
+            &:active {
+                transform: none !important;
             }
         }
         .header {

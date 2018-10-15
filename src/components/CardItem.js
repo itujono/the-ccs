@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Checkbox } from "semantic-ui-react";
+import { Card, Checkbox, Popup } from "semantic-ui-react";
 
 
 const CardItem = ({ item, className, handleSelectItem, subItems, hasSubItems, inArray, onChangeItem }) => {
@@ -17,9 +17,17 @@ const CardItem = ({ item, className, handleSelectItem, subItems, hasSubItems, in
                 hasSubItems && subItems && <Card.Content extra>
                     {subItems.map(sub => sub.map(hore => {
                         if (hore.parent === item.name) {
-                            console.log(hore)
                             return <div key={hore.id} style={{ padding: '.3em 0' }}>
-                                <Checkbox label={hore.name} onChange={() => onChangeItem(hore)} /> - <span>Rp {hore.price},00</span>
+                                <Popup
+                                    trigger={
+                                        <React.Fragment>
+                                        <Checkbox label={hore.name} onChange={() => onChangeItem(hore)} /> - <span>Rp {hore.price},00</span>
+                                        </React.Fragment>
+                                    }
+                                    content={hore.description}
+                                    inverted
+                                />
+                                {/* <Checkbox label={hore.name} onChange={() => onChangeItem(hore)} /> - <span>Rp {hore.price},00</span> */}
                             </div>
                         }
                     }))}
