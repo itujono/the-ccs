@@ -49,15 +49,20 @@ class Features extends React.Component {
     }
     
     handleSelectItem = (selectedItem) => {
+        const { subItems } = this.props
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
-        
-        this.setState({ selectedItem, initial: false })
-        
+                
         if (selected) {
             this.props.deleteHomeFeatures(selected.id)
         } else {
-            this.props.saveHomeFeatures(selectedItem)
-            this.props.fetchFeatures()
+            if (subItems && subItems[0] !== undefined) {
+                return;
+            } else {
+                this.setState({ selectedItem, initial: false })
+                this.props.saveHomeFeatures(selectedItem)
+                this.props.fetchFeatures()
+            }
+            
         }
         
     }
@@ -99,9 +104,10 @@ class Features extends React.Component {
         const { nextSection, selected, section } = this.props
         const name = section.name.toLowerCase().replace(' ', '_')
 
-        if (nextSection, selected) {
-            this.props.saveCartItems({ [name]: selected })
-            this.props.saveTotalCart(total)
+        if (nextSection && selected) {
+            this.props.saveTotalCart(this.props.total + total)
+            // this.props.saveCartItems({ [name]: selected }, name)
+            this.props.saveCartItems(selected)
             this.props.history.push(`/features/${nextSection.toLowerCase()}`)
         }
 
@@ -113,13 +119,15 @@ class Features extends React.Component {
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
         const hasSubItems = subItems && subItems[0] !== undefined
 
+        console.log(this.props.cart || "Heheh")
+
         return (
                 <Grid centered relaxed="very" className="page-features">
                     <Grid.Row>
                         <Grid.Column width={14}>
-                            <div className="navigator">
+                            { section.name !== 'Home' && <div className="navigator">
                                 <Button basic icon="chevron left" className="link-btn" onClick={this.props.history.goBack} />
-                            </div>
+                            </div>}
                             <Header as="h2" className="heading">
                                 Bagian: <span className="tosca">{section.name}</span>
                             </Header>
@@ -154,6 +162,8 @@ class Features extends React.Component {
                                             item={item}
                                             inArray={inArray}
                                             key={item.id}
+                                            hasSubItems={hasSubItems}
+                                            subItems={subItems}
                                             selectedItem={selectedItem}
                                             handleSelectItem={this.handleSelectItem}
                                         />
@@ -184,6 +194,7 @@ const mapState = ({ home, cart }, ownProps) => {
 
     return {
         total: cart.total,
+        // generalTotal: [ ...cart.total ],
         cart: cart.cart,
         selected: home.selected,
         features: section.items,

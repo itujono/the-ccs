@@ -2,7 +2,9 @@ import { SAVE_TOTAL_CART, SAVE_CART_ITEMS } from "../constants";
 
 
 const initialState = {
-    cart: []
+    cart: [],
+    total: 0,
+    generalTotal: []
 }
 
 export default (state = initialState, action) => {
@@ -10,7 +12,10 @@ export default (state = initialState, action) => {
         case SAVE_TOTAL_CART:
             return { ...state, total: action.payload }
         case SAVE_CART_ITEMS:
-            return { ...state, cart: [ ...state.cart, action.payload ] }
+            return {
+                ...state,
+                cart: [ ...state.cart, action.payload ]
+            }
         default:
             return state
     }
