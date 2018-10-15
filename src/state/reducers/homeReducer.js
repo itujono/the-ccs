@@ -29,8 +29,12 @@ export default (state = initialState, action) => {
                     selected: action.payload ? active.items.filter(item => item.default) : state.selected
                 }
             }
-        // case MAKE_INITIAL:
-        //     return { ...state, selected: state.allSections.items.filter(item => item.default) }
+        case MAKE_INITIAL:
+            const current = state.allSections && state.allSections.find(section => section.id === action.activeSection)
+
+            if (current) {
+                return { ...state, selected: current.items.filter(item => item.default) }
+            }
         default:
             return state
     }

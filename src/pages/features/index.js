@@ -36,7 +36,11 @@ class Features extends React.Component {
     handleBlur = () => this.setState({ expanded: false })
 
     handleMakeInitial = () => {
-        this.props.makeInitial()
+        const { section: { id } } = this.props
+
+        console.log("Initialized!!!!")
+
+        this.props.makeInitial(id)
         this.setState({ initial: true })
     }
 

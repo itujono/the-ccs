@@ -13,6 +13,6 @@ export const fetchInitialItems = (initial, activeSection) => ({
     type: FETCH_INITIAL_ITEMS, payload: initial, activeSection
 })
 
-export const makeInitial = () => ({ type: MAKE_INITIAL })
+export const makeInitial = (activeSection) => ({ type: MAKE_INITIAL, activeSection })
 
 export const fetchFeatures = () => ({ type: FETCH_FEATURES })
