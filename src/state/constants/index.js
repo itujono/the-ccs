@@ -14,3 +14,4 @@ export const MAKE_INITIAL = 'MAKE_INITIAL'
 
 // Cart constants
 export const SAVE_TOTAL_CART = 'SAVE_TOTAL_CART'
+export const SAVE_CART_ITEMS = 'SAVE_CART_ITEMS'

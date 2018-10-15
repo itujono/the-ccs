@@ -6,7 +6,6 @@ const initialState = {
     selected: []
 }
 
-console.log(initialState)
 
 export default (state = initialState, action) => {
 

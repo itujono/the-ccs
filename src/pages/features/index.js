@@ -1,9 +1,10 @@
 import React from "react"
 import { Grid, Header, List, Container, Button, Card, Icon } from "semantic-ui-react"
 import CardItem from "../../components/CardItem";
+import Sidebar from "../../components/Sidebar";
 import { connect } from "react-redux";
 import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial, fetchFeatures } from "../../state/actions/homeActions"
-import { saveTotalCart } from "../../state/actions/cartActions";
+import { saveTotalCart, saveCartItems } from "../../state/actions/cartActions";
 
 
 
@@ -13,11 +14,39 @@ class Features extends React.Component {
     state = { initial: true, selectedItem: null }
 
     componentDidMount() {
-        const { section } = this.props
+        const { section, initialSelected, selected } = this.props
         const { initial } = this.state
 
         if (section) this.props.fetchInitialItems(initial, section.id)
-    }    
+        if (initialSelected && selected) {
+            const initialId = initialSelected.map(item => item.id)
+            const selectedId = selected.map(item => item.id)
+
+            if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
+                console.log("Nggak sama wak...")
+                this.props.makeInitial(section.id)
+            }
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const { section, initialSelected, selected } = this.props
+        const { initial } = this.state
+        
+        if (prevProps.section !== this.props.section ) {
+            if (section) this.props.fetchInitialItems(initial, section.id)
+            if (initialSelected && selected) {
+                const initialId = initialSelected.map(item => item.id)
+                const selectedId = selected.map(item => item.id)
+    
+                if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
+                    console.log("Nggak sama wak...")
+                    this.props.makeInitial(section.id)
+                }
+            }
+        }
+
+    }
     
     handleSelectItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
@@ -38,13 +67,11 @@ class Features extends React.Component {
     handleMakeInitial = () => {
         const { section: { id } } = this.props
 
-        console.log("Initialized!!!!")
-
         this.props.makeInitial(id)
         this.setState({ initial: true })
     }
 
-    handleRenderFeatures = () => {
+    handleRenderSelected = () => {
         const { selected } = this.props
 
         const selectedFeatures = selected && selected.map(item => (
@@ -69,42 +96,44 @@ class Features extends React.Component {
     }
 
     handleSaveTotalCart = (total) => {
-        this.props.saveTotalCart(total)
-        this.props.history.push('/features/product_detail')
+        const { nextSection, selected, section } = this.props
+        const name = section.name.toLowerCase().replace(' ', '_')
+
+        if (nextSection, selected) {
+            this.props.saveCartItems({ [name]: selected })
+            this.props.saveTotalCart(total)
+            this.props.history.push(`/features/${nextSection.toLowerCase()}`)
+        }
+
     }
 
     render() {
-        const { selected, features } = this.props
+        const { selected, features, section, subItems, nextSection } = this.props
         const { selectedItem } = this.state
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
+        const hasSubItems = subItems && subItems[0] !== undefined
 
         return (
-                <Grid centered relaxed="very" className="page-home">
+                <Grid centered relaxed="very" className="page-features">
                     <Grid.Row>
                         <Grid.Column width={14}>
+                            <div className="navigator">
+                                <Button basic icon="chevron left" className="link-btn" onClick={this.props.history.goBack} />
+                            </div>
                             <Header as="h2" className="heading">
-                                Bagian: <span className="tosca">Home</span>
+                                Bagian: <span className="tosca">{section.name}</span>
                             </Header>
-                            Aku akan menyadarkan Pak Prabowo bahwa dia adalah anak Indonesia.
+                            Silakan pilih fitur-fitur yang kamu mau untuk online shop kamu.
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
-                        <Grid.Column width={4} className="sidebar">
-                            <Header as="h4" content="Fitur-fitur yang kamu pilih" />
-                            <List bulleted divided relaxed="very" verticalAlign="middle" className="selected-list">
-                                { this.handleRenderFeatures() }
-                            </List>
-                            { selected && selected.length > 0 ? <Container>
-                                Estimasi total
-                                <Header as="h4" content={total ? 'Rp ' + total + ',00' : 0} />
-                                <div className="next-page">
-                                    <p>Puas sama fitur-fitur yang dipilih?</p> <br />
-                                    <Button onClick={() => this.handleSaveTotalCart(total)} icon labelPosition='right' className="btn-ccs">
-                                        Lanjut ke Product Detail <Icon name='chevron right' />
-                                    </Button>
-                                </div>
-                            </Container> : <p>Hmm, silakan pilih fitur-fitur nya ya.</p>}
-                        </Grid.Column>
+                        <Sidebar
+                            selected={selected}
+                            saveTotalCart={this.handleSaveTotalCart}
+                            total={total}
+                            nextSection={nextSection}
+                            renderSelected={this.handleRenderSelected}
+                        />
                         <Grid.Column width={10}>
                             <Container textAlign="right" style={{ marginBottom: '2em' }}>
                                 <Button
@@ -116,7 +145,7 @@ class Features extends React.Component {
                                 />
                             </Container>
                             <Container>
-                                <Card.Group itemsPerRow={3}>
+                                <Card.Group itemsPerRow={hasSubItems ? 2 : 3}>
                                 {
                                     features && features.map((item) => {
                                         const inArray = selected && selected.find(sel => sel.id === item.id)
@@ -141,24 +170,32 @@ class Features extends React.Component {
 
 const mapState = ({ home, cart }, ownProps) => {
     const sectionName = ownProps.match.params.name.toLowerCase()
-
+    const allSections = home.allSections
     let section = {}
 
-    if (home.allSections && home.allSections.length > 0) {
-        section = home.allSections.filter(sec => sec.name.toLowerCase() === sectionName)[0]
+    if (allSections && allSections.length > 0) {
+        section = allSections.filter(sec => sec.name.toLowerCase() === sectionName)[0]
     }
 
     const initialSelected = section && section.items && section.items.filter(item => item.default)
+    const subItems = section && section.items && section.items.map(feat => feat.subitems)
+    const nextSectionId = allSections && allSections.filter(sect => sect.id === section.id)[0].id + 1
+    const nextSection = allSections && allSections.filter(section => section.id === nextSectionId).map(item => item.name)[0]
 
     return {
-        selected: home.selected,
         total: cart.total,
+        cart: cart.cart,
+        selected: home.selected,
         features: section.items,
+        sectionName,
+        allSections: home.allSections,
+        nextSection,
+        subItems,
         section,
         initialSelected
     }
 }
 
-const actionList = { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial, saveTotalCart, fetchFeatures }
+const actionList = { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial, saveTotalCart, fetchFeatures, saveCartItems }
 
 export default connect(mapState, actionList)(Features)

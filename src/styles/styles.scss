@@ -82,10 +82,13 @@ h1, h2, h3, h4, h5, h6 {
             }
         }
     }
-    &.page-home {
-        padding-top: $baseSize * 4;
+    &.page-features {
+        padding-top: $baseSize * 2;
         .row {
             margin-bottom: $baseSize * 5 ;
+        }
+        .navigator {
+            margin-bottom: $baseSize * 2;
         }
     }
 }
