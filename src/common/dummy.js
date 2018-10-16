@@ -74,6 +74,65 @@ const features = [
             }
         ],
     },
+    {
+        id: 104,
+        name: 'Additional',
+        items: [
+            {
+                id: 18,
+                name: "Promotional email marketing",
+                description: "Sempardak bukanlah hak segala bangsa yang hakiki dan jumawa",
+                subitems: [
+                    { id: 181, parent: "Promotional email marketing", name: 'Pengumuman penting', price: 1300000, description: "Sempardak bukanlah hak segala bangsa yang hakiki dan jumawa", default: true },
+                    { id: 182, parent: "Promotional email marketing", name: 'Ketika ada product yang diskon di cart', price: 1300000, description: "Mungkin kita bukanlah putra terbaik bangsa, namun ketika nasi ayam sedang diskon", default: false }
+                ]
+            },
+            {
+                id: 15,
+                name: "Email templates",
+                description: "Page milih email template",
+                subitems: [
+                    { id: 151, parent: "Email templates", name: 'Register done', price: 400000, description: "Data ongkir ditampilkan dengan sempurna dan segalanya ada", default: true },
+                    { id: 152, parent: "Email templates", name: 'Account activated', price: 400000, description: "Ekspedisi TIKI", default: true },
+                    { id: 153, parent: "Email templates", name: 'Request forgot password', price: 400000, description: "Ekspedisi JNE", default: true },
+                    { id: 154, parent: "Email templates", name: 'Password changed done', price: 400000, description: "Ekspedisi Pos Indonesia", default: false },
+                    { id: 155, parent: "Email templates", name: 'Order made', price: 400000, description: "Ekspedisi Si Cepat", default: false },
+                    { id: 156, parent: "Email templates", name: 'Konfirmasi pembayaran order done', price: 400000, description: "Ekspedisi Lion Parcel", default: false },
+                    { id: 157, parent: "Email templates", name: 'Konfirmasi deposit', price: 400000, description: "Ekspedisi JNT", default: false },
+                    { id: 157, parent: "Email templates", name: 'Konfirmasi transfer deposit done', price: 400000, description: "Ekspedisi JNT", default: false },
+                    { id: 157, parent: "Email templates", name: 'Berita deposit (accepted, rejected, etc)', price: 400000, description: "Ekspedisi JNT", default: false }
+                ]
+            },
+            {
+                id: 16,
+                name: "Login methods",
+                description: "Page milih metode login untuk user",
+                subitems: [
+                    { id: 161, parent: "Login methods", name: 'Facebook', price: 1300000, description: "Login via Facebook", default: false },
+                    { id: 162, parent: "Login methods", name: 'Twitter', price: 1000000, description: "Login via Twitter", default: false },
+                    { id: 163, parent: "Login methods", name: 'One-time password', price: 2400000, description: "Login via one-time password", default: false }
+                ]
+            },
+            {
+                id: 17,
+                name: "Desain UI",
+                description: "Kamu mau siapa yang desain UI dan UX online shop nya?",
+                subitems: [
+                    { id: 171, parent: "Summary", name: 'Dari The CSS', price: 6500000, description: "Ringkasan data pesanan user", default: true },
+                    { id: 171, parent: "Summary", name: 'Saya udah punya', price: 2000000, description: "Ringkasan data pesanan user", default: false }
+                ]
+            },
+            {
+                id: 18,
+                name: "Logo Online Shop",
+                description: "Kamu mau siapa yang desain logo online shop nya?",
+                subitems: [
+                    { id: 171, parent: "Logo Online Shop", name: 'Dari The CSS', price: 3000000, description: "Ringkasan data pesanan user", default: true },
+                    { id: 171, parent: "Logo Online Shop", name: 'Saya udah punya', price: 0, description: "Ringkasan data pesanan user", default: false }
+                ]
+            }
+        ],
+    },
 ]
 
 export default features

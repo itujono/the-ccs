@@ -47,19 +47,14 @@ class Features extends React.Component {
     }
     
     handleSelectItem = (selectedItem) => {
-        const { subItems } = this.props
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
                 
         if (selected) {
             this.props.deleteHomeFeatures(selected.id)
         } else {
-            if (subItems && subItems[0] !== undefined) {
-                return;
-            } else {
-                this.setState({ selectedItem, initial: false })
-                this.props.saveHomeFeatures(selectedItem)
-                this.props.fetchFeatures()
-            }
+            this.setState({ selectedItem, initial: false })
+            this.props.saveHomeFeatures(selectedItem)
+            this.props.fetchFeatures()
         }
     }
 
@@ -78,9 +73,12 @@ class Features extends React.Component {
     handleBlur = () => this.setState({ expanded: false })
 
     handleMakeInitial = () => {
-        const { section: { id } } = this.props
+        const { section: { id }, section } = this.props
+        const hasSubItems = section && section.items.map(item => item.subitems)
 
-        this.props.makeInitial(id)
+        console.log(hasSubItems)
+
+        this.props.makeInitial(id, hasSubItems)
         this.setState({ initial: true })
     }
 
@@ -161,7 +159,7 @@ class Features extends React.Component {
                     <Card.Group itemsPerRow={3}>
                     {
                         item.subitems.map(sub => {
-                            const inArray = selected && selected.find(sel => sel.id === item.id)
+                            const inArray = selected && selected.find(sel => sel.id === sub.id)
 
                             return (
                                 <CardItem
@@ -186,12 +184,7 @@ class Features extends React.Component {
         const { selected, features, section, subItems, nextSection } = this.props
         const { selectedItem } = this.state
         const hasSubItems = subItems && subItems[0] !== undefined
-        const total = selected && !hasSubItems && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
-        const panes = [
-            { menuItem: 'Tab 1', render: () => <Tab.Pane attached={false}>Tab 1 Content</Tab.Pane> },
-            { menuItem: 'Tab 2', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
-            { menuItem: 'Tab 3', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
-        ]
+        const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
 
         return (
@@ -275,7 +268,6 @@ const mapState = ({ home, cart }, ownProps) => {
 
     return {
         total: cart.total,
-        // generalTotal: [ ...cart.total ],
         cart: cart.cart,
         selected: home.selected,
         features: section.items,
