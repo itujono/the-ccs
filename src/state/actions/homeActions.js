@@ -9,8 +9,8 @@ export const deleteHomeFeatures = (itemId) => ({
     type: DELETE_HOME_FEATURES, payload: itemId
 })
 
-export const fetchInitialItems = (initial, activeSection) => ({
-    type: FETCH_INITIAL_ITEMS, payload: initial, activeSection
+export const fetchInitialItems = (initial, activeSection, hasSubItems) => ({
+    type: FETCH_INITIAL_ITEMS, payload: initial, activeSection, hasSubItems
 })
 
 export const makeInitial = (activeSection) => ({ type: MAKE_INITIAL, activeSection })

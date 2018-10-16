@@ -15,11 +15,12 @@ span.tosca {
 }
 
 .ui.checkbox input:checked~.box:after, .ui.checkbox input:checked~label:after {
-    color: $tosca !important;
+    color: white !important;
 }
 
 .ui.checkbox input:checked~.box:before, .ui.checkbox input:checked~label:before {
     border-color: $tosca !important;
+    background: $tosca !important;
 }
 
 .ui.button {
@@ -211,6 +212,9 @@ h1, h2, h3, h4, h5, h6 {
             .description {
                 color: white !important;
                 margin-bottom: .5em !important;
+                p {
+                    padding: ($baseSize - .5) 0 !important;
+                }
             }
         }
     }
@@ -222,6 +226,24 @@ h1, h2, h3, h4, h5, h6 {
         p {
             font-size: .9em;
             margin-bottom: 0 !important;
+        }
+    }
+}
+
+.tabbed-cards {
+    .ui.segment {
+        background: $blueish !important;
+        border: none;
+        box-shadow: none;
+        padding-left: 0;
+    }
+    .ui.menu {
+        .item {
+            color: rgba($color: #000000, $alpha: .3);
+            &.active {
+                background: $tosca;
+                color: white;
+            }
         }
     }
 }

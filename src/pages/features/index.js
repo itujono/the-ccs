@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Header, List, Container, Button, Card, Icon } from "semantic-ui-react"
+import { Grid, Header, List, Container, Button, Card, Tab } from "semantic-ui-react"
 import CardItem from "../../components/CardItem";
 import Sidebar from "../../components/Sidebar";
 import { connect } from "react-redux";
@@ -14,16 +14,15 @@ class Features extends React.Component {
     state = { initial: true, selectedItem: null, hovered: false }
 
     componentDidMount() {
-        const { section, initialSelected, selected } = this.props
+        const { section, initialSelected, selected, subItems } = this.props
         const { initial } = this.state
 
-        if (section) this.props.fetchInitialItems(initial, section.id)
+        if (section) this.props.fetchInitialItems(initial, section.id, subItems)
         if (initialSelected && selected) {
             const initialId = initialSelected.map(item => item.id)
             const selectedId = selected.map(item => item.id)
 
             if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
-                console.log("Nggak sama wak...")
                 this.props.makeInitial(section.id)
             }
         }
@@ -40,7 +39,6 @@ class Features extends React.Component {
                 const selectedId = selected.map(item => item.id)
     
                 if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
-                    console.log("Nggak sama wak...")
                     this.props.makeInitial(section.id)
                 }
             }
@@ -67,7 +65,7 @@ class Features extends React.Component {
 
     handleOnChangeItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
-        
+
         if (selected) {
             this.props.deleteHomeFeatures(selected.id)
         } else {
@@ -142,7 +140,7 @@ class Features extends React.Component {
     }
 
     handleSaveTotalCart = (total) => {
-        const { nextSection, selected, section } = this.props
+        const { nextSection, selected } = this.props
         // const name = section.name.toLowerCase().replace(' ', '_')
 
         if (nextSection && selected) {
@@ -152,11 +150,48 @@ class Features extends React.Component {
         }
     }
 
+    renderTab = () => {
+        const { features, selected, subItems } = this.props
+        const { selectedItem } = this.state
+        const hasSubItems = subItems && subItems[0] !== undefined
+
+        const tabbed = features && features.map(item => ({
+            menuItem: item.name, render: () => (
+                <Tab.Pane attached={false}>
+                    <Card.Group itemsPerRow={3}>
+                    {
+                        item.subitems.map(sub => {
+                            const inArray = selected && selected.find(sel => sel.id === item.id)
+
+                            return (
+                                <CardItem
+                                    item={sub}
+                                    inArray={inArray}
+                                    key={sub.id}
+                                    selectedItem={selectedItem}
+                                    handleSelectItem={this.handleSelectItem}
+                                />
+                            )
+                        })
+                    }
+                    </Card.Group>
+                </Tab.Pane>
+            )
+        }))
+
+        return tabbed
+    }
+
     render() {
         const { selected, features, section, subItems, nextSection } = this.props
         const { selectedItem } = this.state
-        const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
         const hasSubItems = subItems && subItems[0] !== undefined
+        const total = selected && !hasSubItems && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
+        const panes = [
+            { menuItem: 'Tab 1', render: () => <Tab.Pane attached={false}>Tab 1 Content</Tab.Pane> },
+            { menuItem: 'Tab 2', render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane> },
+            { menuItem: 'Tab 3', render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane> },
+        ]
 
 
         return (
@@ -193,25 +228,29 @@ class Features extends React.Component {
                                 />
                             </Container>
                             <Container>
-                                <Card.Group itemsPerRow={hasSubItems ? 2 : 3}>
                                 {
-                                    features && features.map((item) => {
-                                        const inArray = selected && selected.find(sel => sel.id === item.id)
+                                    hasSubItems ? <Tab menu={{ secondary: true }} panes={this.renderTab()} className="tabbed-cards" /> : (
+                                    <Card.Group itemsPerRow={3}>
+                                    {
+                                        features && features.map((item) => {
+                                            const inArray = selected && selected.find(sel => sel.id === item.id)
 
-                                        return <CardItem
-                                            item={item}
-                                            inArray={inArray}
-                                            key={item.id}
-                                            hovered={this.state.hovered}
-                                            hasSubItems={hasSubItems}
-                                            subItems={subItems}
-                                            selectedItem={selectedItem}
-                                            onChangeItem={this.handleOnChangeItem}
-                                            handleSelectItem={this.handleSelectItem}
-                                        />
-                                    })
+                                            return <CardItem
+                                                item={item}
+                                                inArray={inArray}
+                                                key={item.id}
+                                                hovered={this.state.hovered}
+                                                hasSubItems={hasSubItems}
+                                                subItems={subItems}
+                                                selectedItem={selectedItem}
+                                                onChangeItem={this.handleOnChangeItem}
+                                                handleSelectItem={this.handleSelectItem}
+                                            />
+                                        })
+                                    }
+                                    </Card.Group>
+                                    )
                                 }
-                                </Card.Group>
                             </Container>
                         </Grid.Column>
                     </Grid.Row>
