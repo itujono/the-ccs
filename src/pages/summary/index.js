@@ -15,7 +15,7 @@ class Summary extends React.Component {
             <Grid centered padded>
                 <Switch>
                     <Route path="/summary" render={() => (
-                        <Grid.Column width={8} className="summary-home">
+                        <Grid.Column width={8} className="summary">
                             <div className="navigator">
                                 <Button
                                     as={Link}
@@ -44,8 +44,8 @@ class Summary extends React.Component {
                                                                 return (
                                                                     <List.Item>
                                                                         <List.Content>
-                                                                            <List.Header>Nama kamu</List.Header>
-                                                                            {sub.name} <br /> {sub.price}
+                                                                            <List.Header>{sub.name}</List.Header>
+                                                                            {sub.price}
                                                                         </List.Content>
                                                                     </List.Item>
                                                                 )
@@ -60,8 +60,10 @@ class Summary extends React.Component {
                                         )
                                     })
                                 }
-                                <Container>
+                                <Container className="total-general">
                                     Total Jendral: <Header as="h3" content={`Rp ${this.props.price},00`} />
+                                    <p>Sekali lagi ingat, ini cuma estimasi loh ya. Heheh.</p>
+                                    <Button content="Lanjut ke Appointment" className="btn-ccs" />
                                 </Container>
                             </Container>
                         </Grid.Column>
