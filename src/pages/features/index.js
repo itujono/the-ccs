@@ -76,8 +76,6 @@ class Features extends React.Component {
         const { section: { id }, section } = this.props
         const hasSubItems = section && section.items.map(item => item.subitems)
 
-        console.log(hasSubItems)
-
         this.props.makeInitial(id, hasSubItems)
         this.setState({ initial: true })
     }
@@ -138,13 +136,13 @@ class Features extends React.Component {
     }
 
     handleSaveTotalCart = (total) => {
-        const { nextSection, selected } = this.props
-        // const name = section.name.toLowerCase().replace(' ', '_')
+        const { nextSection, selected, section: { name } } = this.props
+        const url = name === 'Additional' ? "/summary" : `/features/${nextSection.toLowerCase()}`
 
-        if (nextSection && selected) {
+        if (selected) {
             this.props.saveTotalCart(this.props.total + total)
             this.props.saveCartItems(selected)
-            this.props.history.push(`/features/${nextSection.toLowerCase()}`)
+            this.props.history.push(url)
         }
     }
 
@@ -188,66 +186,66 @@ class Features extends React.Component {
 
 
         return (
-                <Grid centered relaxed="very" className="page-features">
-                    <Grid.Row>
-                        <Grid.Column width={14}>
-                            { section.name !== 'Home' && <div className="navigator">
-                                <Button basic icon="chevron left" className="link-btn" onClick={this.props.history.goBack} />
-                            </div>}
-                            <Header as="h2" className="heading">
-                                Bagian: <span className="tosca">{section.name}</span>
-                            </Header>
-                            Silakan pilih fitur-fitur yang kamu mau untuk online shop kamu.
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Sidebar
-                            selected={selected}
-                            saveTotalCart={this.handleSaveTotalCart}
-                            total={total}
-                            hasSubItems={hasSubItems}
-                            nextSection={nextSection}
-                            renderSelectedHasSubItems={this.handleRenderSelectedHasSubItems}
-                            renderSelected={this.handleRenderSelected}
-                        />
-                        <Grid.Column width={10}>
-                            <Container textAlign="right" style={{ marginBottom: '2em' }}>
-                                <Button
-                                    content="Pilihan yang direkomendasikan"
-                                    className="btn-ccs"
-                                    icon="checkmark"
-                                    disabled={this.state.initial}
-                                    onClick={this.handleMakeInitial}
-                                />
-                            </Container>
-                            <Container>
+            <Grid centered relaxed="very" className="page-features">
+                <Grid.Row>
+                    <Grid.Column width={14}>
+                        { section.name !== 'Home' && <div className="navigator">
+                            <Button basic icon="chevron left" className="link-btn" onClick={this.props.history.goBack} />
+                        </div>}
+                        <Header as="h2" className="heading">
+                            Bagian: <span className="tosca">{section.name}</span>
+                        </Header>
+                        Silakan pilih fitur-fitur yang kamu mau untuk online shop kamu.
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Sidebar
+                        selected={selected}
+                        saveTotalCart={this.handleSaveTotalCart}
+                        total={total}
+                        hasSubItems={hasSubItems}
+                        nextSection={nextSection}
+                        renderSelectedHasSubItems={this.handleRenderSelectedHasSubItems}
+                        renderSelected={this.handleRenderSelected}
+                    />
+                    <Grid.Column width={10}>
+                        <Container textAlign="right" style={{ marginBottom: '2em' }}>
+                            <Button
+                                content="Pilihan yang direkomendasikan"
+                                className="btn-ccs"
+                                icon="checkmark"
+                                disabled={this.state.initial}
+                                onClick={this.handleMakeInitial}
+                            />
+                        </Container>
+                        <Container>
+                            {
+                                hasSubItems ? <Tab menu={{ secondary: true }} panes={this.renderTab()} className="tabbed-cards" /> : (
+                                <Card.Group itemsPerRow={3}>
                                 {
-                                    hasSubItems ? <Tab menu={{ secondary: true }} panes={this.renderTab()} className="tabbed-cards" /> : (
-                                    <Card.Group itemsPerRow={3}>
-                                    {
-                                        features && features.map((item) => {
-                                            const inArray = selected && selected.find(sel => sel.id === item.id)
+                                    features && features.map((item) => {
+                                        const inArray = selected && selected.find(sel => sel.id === item.id)
 
-                                            return <CardItem
-                                                item={item}
-                                                inArray={inArray}
-                                                key={item.id}
-                                                hovered={this.state.hovered}
-                                                hasSubItems={hasSubItems}
-                                                subItems={subItems}
-                                                selectedItem={selectedItem}
-                                                onChangeItem={this.handleOnChangeItem}
-                                                handleSelectItem={this.handleSelectItem}
-                                            />
-                                        })
-                                    }
-                                    </Card.Group>
-                                    )
+                                        return <CardItem
+                                            item={item}
+                                            inArray={inArray}
+                                            key={item.id}
+                                            hovered={this.state.hovered}
+                                            hasSubItems={hasSubItems}
+                                            subItems={subItems}
+                                            selectedItem={selectedItem}
+                                            onChangeItem={this.handleOnChangeItem}
+                                            handleSelectItem={this.handleSelectItem}
+                                        />
+                                    })
                                 }
-                            </Container>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                                </Card.Group>
+                                )
+                            }
+                        </Container>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         )
     }
 }

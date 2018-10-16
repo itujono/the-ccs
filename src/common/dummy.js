@@ -88,47 +88,47 @@ const features = [
                 ]
             },
             {
-                id: 15,
+                id: 19,
                 name: "Email templates",
                 description: "Page milih email template",
                 subitems: [
-                    { id: 151, parent: "Email templates", name: 'Register done', price: 400000, description: "Data ongkir ditampilkan dengan sempurna dan segalanya ada", default: true },
-                    { id: 152, parent: "Email templates", name: 'Account activated', price: 400000, description: "Ekspedisi TIKI", default: true },
-                    { id: 153, parent: "Email templates", name: 'Request forgot password', price: 400000, description: "Ekspedisi JNE", default: true },
-                    { id: 154, parent: "Email templates", name: 'Password changed done', price: 400000, description: "Ekspedisi Pos Indonesia", default: false },
-                    { id: 155, parent: "Email templates", name: 'Order made', price: 400000, description: "Ekspedisi Si Cepat", default: false },
-                    { id: 156, parent: "Email templates", name: 'Konfirmasi pembayaran order done', price: 400000, description: "Ekspedisi Lion Parcel", default: false },
-                    { id: 157, parent: "Email templates", name: 'Konfirmasi deposit', price: 400000, description: "Ekspedisi JNT", default: false },
-                    { id: 157, parent: "Email templates", name: 'Konfirmasi transfer deposit done', price: 400000, description: "Ekspedisi JNT", default: false },
-                    { id: 157, parent: "Email templates", name: 'Berita deposit (accepted, rejected, etc)', price: 400000, description: "Ekspedisi JNT", default: false }
+                    { id: 191, parent: "Email templates", name: 'Register done', price: 400000, description: "Data ongkir ditampilkan dengan sempurna dan segalanya ada", default: true },
+                    { id: 192, parent: "Email templates", name: 'Account activated', price: 400000, description: "Ekspedisi TIKI", default: true },
+                    { id: 193, parent: "Email templates", name: 'Request forgot password', price: 400000, description: "Ekspedisi JNE", default: true },
+                    { id: 194, parent: "Email templates", name: 'Password changed done', price: 400000, description: "Ekspedisi Pos Indonesia", default: false },
+                    { id: 195, parent: "Email templates", name: 'Order made', price: 400000, description: "Ekspedisi Si Cepat", default: false },
+                    { id: 196, parent: "Email templates", name: 'Konfirmasi pembayaran order done', price: 400000, description: "Ekspedisi Lion Parcel", default: false },
+                    { id: 197, parent: "Email templates", name: 'Konfirmasi deposit', price: 400000, description: "Ekspedisi JNT", default: false },
+                    { id: 198, parent: "Email templates", name: 'Konfirmasi transfer deposit done', price: 400000, description: "Ekspedisi JNT", default: false },
+                    { id: 199, parent: "Email templates", name: 'Berita deposit (accepted, rejected, etc)', price: 400000, description: "Ekspedisi JNT", default: false }
                 ]
             },
             {
-                id: 16,
+                id: 20,
                 name: "Login methods",
                 description: "Page milih metode login untuk user",
                 subitems: [
-                    { id: 161, parent: "Login methods", name: 'Facebook', price: 1300000, description: "Login via Facebook", default: false },
-                    { id: 162, parent: "Login methods", name: 'Twitter', price: 1000000, description: "Login via Twitter", default: false },
-                    { id: 163, parent: "Login methods", name: 'One-time password', price: 2400000, description: "Login via one-time password", default: false }
+                    { id: 201, parent: "Login methods", name: 'Facebook', price: 1300000, description: "Login via Facebook", default: false },
+                    { id: 202, parent: "Login methods", name: 'Twitter', price: 1000000, description: "Login via Twitter", default: false },
+                    { id: 203, parent: "Login methods", name: 'One-time password', price: 2400000, description: "Login via one-time password", default: false }
                 ]
             },
             {
-                id: 17,
+                id: 21,
                 name: "Desain UI",
                 description: "Kamu mau siapa yang desain UI dan UX online shop nya?",
                 subitems: [
-                    { id: 171, parent: "Summary", name: 'Dari The CSS', price: 6500000, description: "Ringkasan data pesanan user", default: true },
-                    { id: 171, parent: "Summary", name: 'Saya udah punya', price: 2000000, description: "Ringkasan data pesanan user", default: false }
+                    { id: 211, parent: "Desain UI", name: 'Dari The CSS', price: 6500000, description: "Ringkasan data pesanan user", default: true },
+                    { id: 212, parent: "Desain UI", name: 'Saya udah punya', price: 2000000, description: "Ringkasan data pesanan user", default: false }
                 ]
             },
             {
-                id: 18,
+                id: 22,
                 name: "Logo Online Shop",
                 description: "Kamu mau siapa yang desain logo online shop nya?",
                 subitems: [
-                    { id: 171, parent: "Logo Online Shop", name: 'Dari The CSS', price: 3000000, description: "Ringkasan data pesanan user", default: true },
-                    { id: 171, parent: "Logo Online Shop", name: 'Saya udah punya', price: 0, description: "Ringkasan data pesanan user", default: false }
+                    { id: 221, parent: "Logo Online Shop", name: 'Dari The CSS', price: 3000000, description: "Logo & branding online shop", default: true },
+                    { id: 222, parent: "Logo Online Shop", name: 'Saya udah punya', price: 500000, description: "Logo & branding online shop", default: false }
                 ]
             }
         ],
