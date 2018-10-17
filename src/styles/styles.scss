@@ -261,5 +261,31 @@ h1, h2, h3, h4, h5, h6 {
                 margin-bottom: $baseSize;
             }
         }
+        .main-segment {
+            margin-bottom: $baseSize * 3 !important;
+            padding-bottom: $baseSize * 2 !important;
+            .ui.label {
+                left: 8.65% !important;
+                border-color: orange !important;
+                background: orange !important;
+                box-shadow: 1px 4px 7px rgba(0, 0, 0, .08);
+                .icon {
+                    color: rgba($color: $blueish, $alpha: .9);
+                }
+            }
+            .ui.grid {
+                .column:last-child {
+                    padding-left: $baseSize * 2;
+                    border-left: 1px solid rgba($color: black, $alpha: .1);
+                }
+            }
+            .cart-card {
+                .card {
+                    background: transparent !important;
+                    border: none;
+                    box-shadow: none !important;
+                }
+            }
+        }
     }
 }

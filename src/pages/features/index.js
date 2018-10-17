@@ -32,7 +32,7 @@ class Features extends React.Component {
         const { section, initialSelected, selected } = this.props
         const { initial } = this.state
         
-        if (prevProps.section !== this.props.section ) {
+        if (prevProps.section.id !== section.id ) {
             if (section) this.props.fetchInitialItems(initial, section.id)
             if (initialSelected && selected) {
                 const initialId = initialSelected.map(item => item.id)
@@ -141,7 +141,7 @@ class Features extends React.Component {
 
         if (selected) {
             this.props.saveTotalCart(this.props.total + total)
-            this.props.saveCartItems(selected)
+            this.props.saveCartItems({ item: selected, section: name })
             this.props.history.push(url)
         }
     }

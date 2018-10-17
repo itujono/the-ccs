@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Button, Container, Header, List, Image, Segment } from "semantic-ui-react"
+import { Grid, Button, Container, Header, List, Image, Segment, Label, Icon, Card } from "semantic-ui-react"
 import { Switch, Route, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
@@ -9,7 +9,7 @@ import { saveCartItems } from "../../state/actions/cartActions"
 class Summary extends React.Component {
     render() {
 
-        const { cart } = this.props
+        const { carts, totalPrice } = this.props
 
         return (
             <Grid centered padded>
@@ -28,32 +28,32 @@ class Summary extends React.Component {
                             <Container textAlign="center">
                                 <div className="heading">
                                     <Header as="h2" content="Nice!" />
-                                    <p>
-                                        So far so good. Berikut adalah summary data diri
-                                        kamu.
-                                    </p>
+                                    <p> So far so good. Berikut adalah summary data diri kamu. </p>
                                 </div>
                                 {
-                                    cart && cart.map(item => {
+                                    carts && carts.map(cart => cart.item).map((item, idx) => {
+                                        const price = item.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
                                         return (
-                                            <Segment padded="very" className="main-segment" textAlign="left">
-                                                <Grid>
+                                            <Segment key={idx} padded="very" className="main-segment" textAlign="left">
+                                                <Label size="large" floating color="orange">
+                                                    <Icon name="checkmark" color="teal" />
+                                                    {this.props.cartSection[idx]}
+                                                </Label>
+                                                <Grid verticalAlign="middle">
                                                     <Grid.Column width={12}>
-                                                        <List divided horizontal relaxed="very">
-                                                            {item.map(sub => {
-                                                                return (
-                                                                    <List.Item>
-                                                                        <List.Content>
-                                                                            <List.Header>{sub.name}</List.Header>
-                                                                            {sub.price}
-                                                                        </List.Content>
-                                                                    </List.Item>
-                                                                )
-                                                            })}
-                                                        </List>
+                                                        <Card.Group itemsPerRow={2} className="cart-card">
+                                                            {item.map(sub => (
+                                                                <Card key={sub.id}>
+                                                                    <Header as="h4" content={sub.name} />
+                                                                    {sub.price}
+                                                                </Card>
+                                                            ))}
+                                                        </Card.Group>
                                                     </Grid.Column>
                                                     <Grid.Column width={4}>
-                                                        Total <Header as="h3" content={`Rp 5000000,00`} />
+                                                        <Container textAlign="center">
+                                                            Total <Header as="h4" content={`Rp ${price},00`} />
+                                                        </Container>
                                                     </Grid.Column>
                                                 </Grid>
                                             </Segment>
@@ -61,7 +61,7 @@ class Summary extends React.Component {
                                     })
                                 }
                                 <Container className="total-general">
-                                    Total Jendral: <Header as="h3" content={`Rp ${this.props.price},00`} />
+                                    Total Jendral: <Header as="h3" content={`Rp ${totalPrice},00`} />
                                     <p>Sekali lagi ingat, ini cuma estimasi loh ya. Heheh.</p>
                                     <Button content="Lanjut ke Appointment" className="btn-ccs" />
                                 </Container>
@@ -74,12 +74,16 @@ class Summary extends React.Component {
     }
 }
 
-const mapState = ({ home, cart }) => {
-    const carts = cart && cart.cart.map(item => item)
-    const price = cart && cart.cart.flat().map(item => item.price).reduce((acc, curr) => acc + curr)
+const mapState = ({ cart }) => {
+    const carts = cart && cart.cart
+    const cartSection = cart && cart.cart.map(item => item.section)
+    const price = cart && cart.cart.map(item => item.item).map(item => item.price)
+    const totalPrice = cart && cart.cart.map(item => item.item).flat().map(item => item.price).reduce((acc, curr) => acc + curr, 0)
     
     return {
-        cart: carts,
+        carts,
+        totalPrice,
+        cartSection,
         price
     }
 }
