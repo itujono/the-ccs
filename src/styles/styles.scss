@@ -28,6 +28,10 @@ span.tosca {
     background: $tosca !important;
 }
 
+.ui.message {
+    box-shadow: none !important;
+}
+
 .ui.button {
     &.btn-ccs {
         background: $toscagrad;

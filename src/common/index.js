@@ -1,4 +1,6 @@
-import * as Yup from "yup";
+import * as Yup from "yup"
+import moment from "moment"
+import 'moment/locale/id'
 
 
 export const signupSchema = Yup.object().shape({
@@ -14,4 +16,11 @@ export const validate = (values) => {
     if (!values.website) errors.website = "Nama online shop kamu juga penting loh ini"
 
     return errors
+}
+
+
+moment.locale('id')
+
+export const tanggal = (date, format = "dddd, DD MMMM YYYY") => {
+    return moment(date).format(format)
 }

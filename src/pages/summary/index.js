@@ -4,13 +4,14 @@ import { Switch, Route, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
 import { saveCartItems } from "../../state/actions/cartActions"
+import { savePersonalInfo } from "../../state/actions/userActions";
 import Appointment from "./Appointment";
 
 
 class Summary extends React.Component {
     render() {
 
-        const { carts, totalPrice } = this.props
+        const { carts, totalPrice, user, savePersonalInfo } = this.props
 
         return (
             <Grid centered padded>
@@ -69,14 +70,14 @@ class Summary extends React.Component {
                             </Container>
                         </Grid.Column>
                     )} />
-                    <Route path="/summary/appointment" render={() => <Appointment /> } />
+                    <Route path="/summary/appointment" render={() => <Appointment user={user} onSavePersonalInfo={savePersonalInfo} /> } />
                 </Switch>
             </Grid>
         )
     }
 }
 
-const mapState = ({ cart }) => {
+const mapState = ({ cart, user }) => {
     const carts = cart && cart.cart
     const cartSection = cart && cart.cart.map(item => item.section)
     const price = cart && cart.cart.map(item => item.item).map(item => item.price)
@@ -86,9 +87,10 @@ const mapState = ({ cart }) => {
         carts,
         totalPrice,
         cartSection,
-        price
+        price,
+        user: user.user
     }
 }
 
 
-export default connect(mapState, { saveHomeFeatures, saveCartItems })(Summary)
+export default connect(mapState, { saveHomeFeatures, saveCartItems, savePersonalInfo })(Summary)
