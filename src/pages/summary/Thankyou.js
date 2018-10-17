@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Grid, Segment, Header, Container, Button } from "semantic-ui-react"
+import { Grid, Segment, Header, Container, Button, Responsive } from "semantic-ui-react"
 
 
 const backToHome = (
@@ -19,7 +19,7 @@ const receivedText = (
 const Thankyou = () => {
 
     return (
-        <Grid.Column width={6}>
+        <Responsive as={Grid.Column} computer={6} mobile={14}>
             <Segment padded="very" centered className="wizard-success">
                 <svg
                     width="133px"
@@ -55,7 +55,7 @@ const Thankyou = () => {
                     onClick={() => window.location.replace('/')}
                 />
             </div>
-        </Grid.Column>
+        </Responsive>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Button, Container, Header, Form, Icon, Message, Transition } from "semantic-ui-react"
+import { Grid, Button, Container, Header, Form, Icon, Message, Transition, Responsive } from "semantic-ui-react"
 import { Link, withRouter } from "react-router-dom"
 import { Formik } from "formik"
 import { tanggal } from "../../common";
@@ -29,7 +29,7 @@ class Appointment extends React.Component {
 
     render() {
         return (
-            <Grid.Column width={8}>
+            <Responsive as={Grid.Column} computer={8} mobile={16} className="appointment">
                 <Container>
                     <div className="heading">
                         <Header as="h2" content="Mau ketemu?" />
@@ -107,7 +107,7 @@ class Appointment extends React.Component {
                         </Button>
                     </div>}
                 </Container>
-            </Grid.Column>
+            </Responsive>
         )
     }
 }

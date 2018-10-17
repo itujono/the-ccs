@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Button, Container, Header, List, Transition, Segment, Label, Icon, Card } from "semantic-ui-react"
+import { Grid, Button, Container, Header, List, Transition, Segment, Label, Icon, Card, Responsive } from "semantic-ui-react"
 import { Switch, Route, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
@@ -18,7 +18,7 @@ class Summary extends React.Component {
             <Grid centered padded>
                 <Switch>
                     <Route exact path="/summary" render={() => (
-                        <Grid.Column width={8} className="summary">
+                        <Responsive as={Grid.Column} computer={8} mobile={16} className="summary">
                             <div className="navigator">
                                 <Button
                                     as={Link}
@@ -31,7 +31,7 @@ class Summary extends React.Component {
                             <Container textAlign="center">
                                 <div className="heading">
                                     <Header as="h2" content="Nice!" />
-                                    <p> So far so good. Berikut adalah summary data diri kamu. </p>
+                                    <p>Berikut adalah summary data simulasi online shop kamu. </p>
                                 </div>
                                 {
                                     carts && carts.map(cart => cart.item).map((item, idx) => {
@@ -42,7 +42,7 @@ class Summary extends React.Component {
                                                     <Icon name="checkmark" color="teal" />
                                                     {this.props.cartSection[idx]}
                                                 </Label>
-                                                <Grid verticalAlign="middle">
+                                                <Grid verticalAlign="middle" stackable>
                                                     <Grid.Column width={12}>
                                                         <Transition.Group as={Card.Group} animation="fade down" duration={200} itemsPerRow={2} className="cart-card">
                                                             {item.map(sub => (
@@ -69,7 +69,7 @@ class Summary extends React.Component {
                                     <Button as={Link} to="/summary/appointment" content="Lanjut ke Appointment" className="btn-ccs" />
                                 </Container>
                             </Container>
-                        </Grid.Column>
+                        </Responsive>
                     )} />
                     <Route path="/summary/appointment" render={() => <Appointment user={user} onSavePersonalInfo={savePersonalInfo} /> } />
                     <Route path="/summary/thankyou" render={() => <Thankyou user={user} /> } />

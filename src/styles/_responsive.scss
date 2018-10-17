@@ -13,4 +13,25 @@
     .navigator {
         padding-left: 10px;
     }
+
+    .ui.grid {
+        &.page-features {
+            .tabbed-cards {
+                .ui.menu {
+                    overflow-x: scroll;
+                }
+            }
+        }
+    }
+
+    .react-datepicker .react-datepicker__day-name, .react-datepicker .react-datepicker__day, .react-datepicker .react-datepicker__time-name {
+        width: 2.7rem !important;
+    }
+
+    .appointment {
+        .container {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+    }
 }

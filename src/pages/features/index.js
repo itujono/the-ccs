@@ -5,6 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import { connect } from "react-redux";
 import { saveHomeFeatures, deleteHomeFeatures, fetchInitialItems, makeInitial, fetchFeatures } from "../../state/actions/homeActions"
 import { saveTotalCart, saveCartItems } from "../../state/actions/cartActions";
+import { mobile } from "../../common";
 
 
 
@@ -138,12 +139,11 @@ class Features extends React.Component {
     renderTab = () => {
         const { features, selected, subItems } = this.props
         const { selectedItem } = this.state
-        const hasSubItems = subItems && subItems[0] !== undefined
 
         const tabbed = features && features.map(item => ({
             menuItem: item.name, render: () => (
                 <Tab.Pane attached={false}>
-                    <Card.Group itemsPerRow={3}>
+                    <Card.Group itemsPerRow={mobile ? 2 : 3}>
                     {
                         item.subitems.map(sub => {
                             const inArray = selected && selected.find(sel => sel.id === sub.id)
@@ -175,7 +175,7 @@ class Features extends React.Component {
 
 
         return (
-            <Grid centered relaxed="very" className="page-features">
+            <Grid centered relaxed="very" stackable className="page-features">
                 <Grid.Row>
                     <Grid.Column width={14}>
                         { section.name !== 'Home' && <div className="navigator">
@@ -187,7 +187,7 @@ class Features extends React.Component {
                         Silakan pilih fitur-fitur yang kamu mau untuk online shop kamu.
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row reversed="mobile">
                     <Sidebar
                         selected={selected}
                         saveTotalCart={this.handleSaveTotalCart}
@@ -210,7 +210,7 @@ class Features extends React.Component {
                         <Container>
                             {
                                 hasSubItems ? <Tab menu={{ secondary: true }} panes={this.renderTab()} className="tabbed-cards" /> : (
-                                <Card.Group itemsPerRow={3}>
+                                <Card.Group itemsPerRow={mobile ? 2 : 3}>
                                 {
                                     features && features.map((item) => {
                                         const inArray = selected && selected.find(sel => sel.id === item.id)
