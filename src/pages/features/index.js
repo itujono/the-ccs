@@ -23,23 +23,23 @@ class Features extends React.Component {
             const selectedId = selected.map(item => item.id)
 
             if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
-                this.props.makeInitial(section.id)
+                this.handleMakeInitial()
             }
         }
     }
 
     componentDidUpdate(prevProps) {
-        const { section, initialSelected, selected } = this.props
+        const { section, initialSelected, selected, subItems } = this.props
         const { initial } = this.state
         
         if (prevProps.section.id !== section.id ) {
-            if (section) this.props.fetchInitialItems(initial, section.id)
+            if (section) this.props.fetchInitialItems(initial, section.id, subItems)
             if (initialSelected && selected) {
                 const initialId = initialSelected.map(item => item.id)
                 const selectedId = selected.map(item => item.id)
     
                 if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
-                    this.props.makeInitial(section.id)
+                    this.handleMakeInitial()
                 }
             }
         }
@@ -52,29 +52,18 @@ class Features extends React.Component {
         if (selected) {
             this.props.deleteHomeFeatures(selected.id)
         } else {
-            this.setState({ selectedItem, initial: false })
+            console.log(selectedItem)
             this.props.saveHomeFeatures(selectedItem)
             this.props.fetchFeatures()
-        }
-    }
-
-    handleOnChangeItem = (selectedItem) => {
-        const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
-
-        if (selected) {
-            this.props.deleteHomeFeatures(selected.id)
-        } else {
             this.setState({ selectedItem, initial: false })
-            this.props.saveHomeFeatures(selectedItem)
-            this.props.fetchFeatures()
         }
     }
     
     handleBlur = () => this.setState({ expanded: false })
 
     handleMakeInitial = () => {
-        const { section: { id }, section } = this.props
-        const hasSubItems = section && section.items.map(item => item.subitems)
+        const { section: { id }, section, subItems } = this.props
+        const hasSubItems = subItems && subItems[0] !== undefined        
 
         this.props.makeInitial(id, hasSubItems)
         this.setState({ initial: true })
@@ -234,7 +223,6 @@ class Features extends React.Component {
                                             hasSubItems={hasSubItems}
                                             subItems={subItems}
                                             selectedItem={selectedItem}
-                                            onChangeItem={this.handleOnChangeItem}
                                             handleSelectItem={this.handleSelectItem}
                                         />
                                     })

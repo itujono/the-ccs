@@ -3,21 +3,27 @@ import { Provider } from "react-redux";
 import store from "./state/store"
 import Router from "./router";
 import "./App.css";
-import { Grid, Container, Header } from "semantic-ui-react";
+import { Grid, Header, Segment, Responsive } from "semantic-ui-react";
 
 
+
+
+const segmentStyle = {
+	marginBottom: 0,
+	padding: 0
+}
 
 const App = () => (
 	<Provider store={store()}>
-		<Grid centered padded className="main-app">
+		<Grid centered stackable padded className="main-app">
 			<Grid.Column width={16}>
-				<Container>
+				<Responsive as={Segment} minWidth={768} basic textAlign="right" style={segmentStyle}>
 					<div className="main-logo">
 						<Header as="h3"><span className="tosca">c</span>ode</Header>
 						<Header as="h3"><span className="tosca">c</span>ollective</Header>
 						<Header as="h3"><span style={{ color: 'orange' }}>s</span>tudio</Header>
 					</div>
-				</Container>
+				</Responsive>
 				<Router />
 			</Grid.Column>
 		</Grid>

@@ -18,6 +18,9 @@ export const validate = (values) => {
     return errors
 }
 
+export const mobile = window.innerWidth < 415
+export const tablet = window.innerWidth > 414 && window.innerWidth < 769
+
 
 moment.locale('id')
 

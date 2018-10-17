@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900');
 @import "./_settings.scss";
 @import "./components";
+@import "./responsive";
 
 
 body {
@@ -16,7 +17,8 @@ span.tosca, .header.tosca {
 }
 
 .main-logo {
-    border-left: 3px solid orange;
+    width: 88%;
+    margin: 0 auto;
     padding-left: 10px;
     transition: all .3s ease;
     &:hover {
@@ -54,14 +56,15 @@ span.tosca, .header.tosca {
 .ui.button {
     &.btn-ccs {
         background: $toscagrad;
+        padding: $baseSize + .2;
         color: white;
         transition: all .5s ease;
         &:hover {
             background: $toscagrad-reverse
         }
-        &:focus {
-            background: transparent !important;
-        }
+        // &:focus {
+        //     background: transparent !important;
+        // }
     }
     &.basic {
         color: white !important;
@@ -107,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
         height: 100vh !important;
         > .column {
             position: relative;
-            margin-top: -5em;
+            margin-top: -9em;
         }
         .container {
             margin-bottom: $baseSize * 5;

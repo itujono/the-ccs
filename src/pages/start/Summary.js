@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid, Container, Header, Segment, Button, List, Image, Icon } from "semantic-ui-react";
+import { Grid, Container, Header, Segment, Button, List, Image, Icon, Responsive } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import { mobile } from "../../common";
 
 
 
@@ -36,7 +37,7 @@ class SummaryHome extends React.Component {
                         </p>
                     </div>
                     <Segment padded="very" className="main-segment">
-                        <List divided horizontal relaxed="very">
+                        <Responsive as={List} divided={!mobile} horizontal={!mobile} relaxed="very">
                             <List.Item>
                                 <Image
                                     avatar
@@ -67,7 +68,7 @@ class SummaryHome extends React.Component {
                                     { user && user.website }
                                 </List.Content>
                             </List.Item>
-                        </List>
+                        </Responsive>
                     </Segment>
                 </Container>
                 <Button as={Link} to="/features/home" icon labelPosition='right' className="btn-ccs" floated="right">

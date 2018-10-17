@@ -43,10 +43,10 @@ class Start extends React.Component {
 
         return (
             <PoseGroup>
-                <RouteContainer key={location.pathname} columns={4} verticalAlign="middle" className="ui centered padded middle aligned four column grid home">
+                <RouteContainer key={location.pathname} columns={4} verticalAlign="middle" className="ui stackable centered padded middle aligned four column grid home">
                     <Switch location={location}>
                         <Route exact path="/start" key="welcome" render={() => (
-                            <Grid.Column width={6}>
+                            <Grid.Column computer={6} mobile={16}>
                                 <Container textAlign="center">
                                     <Header as="h2" content="Welcome!" className="welcome" />
                                     <p>
