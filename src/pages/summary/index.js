@@ -4,6 +4,7 @@ import { Switch, Route, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
 import { saveCartItems } from "../../state/actions/cartActions"
+import Appointment from "./Appointment";
 
 
 class Summary extends React.Component {
@@ -14,7 +15,7 @@ class Summary extends React.Component {
         return (
             <Grid centered padded>
                 <Switch>
-                    <Route path="/summary" render={() => (
+                    <Route exact path="/summary" render={() => (
                         <Grid.Column width={8} className="summary">
                             <div className="navigator">
                                 <Button
@@ -63,11 +64,12 @@ class Summary extends React.Component {
                                 <Container className="total-general">
                                     Total Jendral: <Header as="h3" content={`Rp ${totalPrice},00`} />
                                     <p>Sekali lagi ingat, ini cuma estimasi loh ya. Heheh.</p>
-                                    <Button content="Lanjut ke Appointment" className="btn-ccs" />
+                                    <Button as={Link} to="/summary/appointment" content="Lanjut ke Appointment" className="btn-ccs" />
                                 </Container>
                             </Container>
                         </Grid.Column>
                     )} />
+                    <Route path="/summary/appointment" render={() => <Appointment /> } />
                 </Switch>
             </Grid>
         )

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700,900');
 @import "./_settings.scss";
+@import "./components";
 
 
 body {
@@ -129,6 +130,12 @@ h1, h2, h3, h4, h5, h6 {
     .link-btn {
         padding-left: 0 !important;
     }
+}
+
+.navigator-bottom {
+    margin-top: $baseSize * 4;
+    padding-top: $baseSize * 4;
+    text-align: center;
 }
 
 .heading {
