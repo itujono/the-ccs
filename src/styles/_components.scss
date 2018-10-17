@@ -4,6 +4,7 @@
     min-width: 100% !important;
     border-radius: 12px !important;
     border: none;
+    box-shadow: $boxShadow;
     .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
         color: #000;
         display: inline-block;
@@ -33,5 +34,11 @@
     }
     .react-datepicker__day--disabled {
         color: #ccc !important;
+    }
+    .react-datepicker__navigation--next {
+        border-left-color: $tosca;
+    }
+    .react-datepicker__navigation--previous {
+        border-right-color: $tosca;
     }
 }
