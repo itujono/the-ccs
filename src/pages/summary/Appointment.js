@@ -6,17 +6,21 @@ import { tanggal } from "../../common";
 import DatePicker from "react-datepicker";
 import moment from "moment"
 import 'react-datepicker/dist/react-datepicker.css'
+import Prompt from "../../components/Prompt";
 
 
 class Appointment extends React.Component {
 
-    state = { datepicker: true, startDate: moment() }
+    state = { datepicker: true, startDate: moment(), prompt: false }
 
     handleChangeDate = (date) => {
         const { user } = this.props
         this.props.onSavePersonalInfo({ ...user, date: date._d })
         this.setState({ startDate: date, datepicker: false })
     }
+
+    handleShowPrompt = () => this.setState({ prompt: true })
+    handleClosePrompt = () => this.setState({ prompt: false })
 
     handleShowDatepicker = () => this.setState({ datepicker: true })
 
@@ -66,13 +70,22 @@ class Appointment extends React.Component {
                                                 />
                                             </Form.Field>
                                             <Button type="submit" content="Submit" className="btn-ccs" />
-                                            <Button basic className="link-btn" content="Nggak mau" />
+                                            <Button type="button" basic className="link-btn" content="Nggak mau" onClick={this.handleShowPrompt} />
                                         </Form>
                                     )}
                                 />
                             </Container>
                         )}
                     </Transition.Group>
+                    <Prompt
+                        open={this.state.prompt}
+                        onClose={this.handleClosePrompt}
+                        header="Yakin nggak mau kasih nomer HP?"
+                        cancelText="Eh mau deh"
+                        yesText="Iya yakin"
+                    >
+                        Yakin banget nih ya gak mau kasih nomer HP? Udah paling yakin ni ya?
+                    </Prompt>
                     <div className="navigator-bottom">
                         <Button as={Link} to="/summary" basic className="link-btn" icon labelPosition="right" >
                             Nggak sekarang deh

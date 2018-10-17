@@ -42,3 +42,29 @@
         border-right-color: $tosca;
     }
 }
+
+.ui.modal {
+    &.tiny {
+        padding: ($baseSize) ($baseSize * 1.5);
+        border-radius: 10px !important;
+        border: 3px solid $tosca !important;
+        .actions {
+            background: none !important;
+            border-top: none !important;
+        }
+        .header {
+            color: $tosca !important;
+            border-bottom: none !important;
+        }
+        .content {
+            color: #777 !important;
+            padding-top: 0 !important;
+        }
+        .link-btn {
+            color: #999 !important;
+            &:hover {
+                color: #999 !important;
+            }
+        }
+    }
+}
