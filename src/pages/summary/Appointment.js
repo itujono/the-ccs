@@ -11,7 +11,7 @@ import Prompt from "../../components/Prompt";
 
 class Appointment extends React.Component {
 
-    state = { datepicker: true, startDate: moment(), prompt: false }
+    state = { datepicker: true, startDate: moment(), prompt: false, promptNotAll: false }
 
     handleChangeDate = (date) => {
         const { user } = this.props
@@ -21,6 +21,9 @@ class Appointment extends React.Component {
 
     handleShowPrompt = () => this.setState({ prompt: true })
     handleClosePrompt = () => this.setState({ prompt: false })
+
+    handleShowPromptNotAll = () => this.setState({ promptNotAll: true })
+    handleClosePromptNotAll = () => this.setState({ promptNotAll: false })
 
     handleShowDatepicker = () => this.setState({ datepicker: true })
 
@@ -83,15 +86,26 @@ class Appointment extends React.Component {
                         header="Yakin nggak mau kasih nomer HP?"
                         cancelText="Eh mau deh"
                         yesText="Iya yakin"
+                        confirm={() => this.props.history.push('/summary/thankyou')}
                     >
                         Yakin banget nih ya gak mau kasih nomer HP? Udah paling yakin ni ya?
                     </Prompt>
-                    <div className="navigator-bottom">
-                        <Button as={Link} to="/summary" basic className="link-btn" icon labelPosition="right" >
+                    <Prompt
+                        open={this.state.promptNotAll}
+                        onClose={this.handleClosePromptNotAll}
+                        header="Yakin?"
+                        cancelText="Eh mau deh"
+                        yesText="Iya yakin"
+                        confirm={() => this.props.history.push('/summary/thankyou')}
+                    >
+                        Yakin banget nih ya gak mau janjian dulu sama kita? Udah paling yakin ni ya?
+                    </Prompt>
+                    { this.state.datepicker && <div className="navigator-bottom">
+                        <Button onClick={this.handleShowPromptNotAll} basic className="link-btn" icon labelPosition="right" >
                             Nggak sekarang deh
                             <Icon name="chevron right" />
                         </Button>
-                    </div>
+                    </div>}
                 </Container>
             </Grid.Column>
         )

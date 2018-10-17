@@ -6,6 +6,7 @@ import { saveHomeFeatures } from "../../state/actions/homeActions"
 import { saveCartItems } from "../../state/actions/cartActions"
 import { savePersonalInfo } from "../../state/actions/userActions";
 import Appointment from "./Appointment";
+import Thankyou from "./Thankyou";
 
 
 class Summary extends React.Component {
@@ -71,6 +72,7 @@ class Summary extends React.Component {
                         </Grid.Column>
                     )} />
                     <Route path="/summary/appointment" render={() => <Appointment user={user} onSavePersonalInfo={savePersonalInfo} /> } />
+                    <Route path="/summary/thankyou" render={() => <Thankyou user={user} /> } />
                 </Switch>
             </Grid>
         )

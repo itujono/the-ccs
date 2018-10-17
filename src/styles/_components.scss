@@ -68,3 +68,49 @@
         }
     }
 }
+
+
+
+#outline {
+    animation: .38s ease-in outline;
+    transform: rotate(0deg);
+    transform-origin: center;
+  }
+  
+  #white-circle {
+    animation: .35s ease-in .35s forwards circle;
+    transform: none;
+    transform-origin: center;
+  }
+
+  
+  #check {
+    animation: .34s cubic-bezier(0.65, 0, 1, 1) .8s forwards check; 
+    stroke-dasharray: 0, $check-len;
+  }
+  
+  #check-group {
+    animation: .32s ease-in-out 1.03s check-group;
+    transform-origin: center;
+  }
+  
+  @keyframes outline {
+      from { stroke-dasharray: 0, $circumf; }
+      to { stroke-dasharray: $circumf, $circumf; }
+  }
+  
+  @keyframes check-group {
+      from { transform: scale(1); }
+      50% { transform: scale(1.09); }
+      to { transform: scale(1); }
+  }
+  
+  @keyframes check {
+      from { stroke-dasharray: 0, $check-len; }
+      to { stroke-dasharray: $check-len, $check-len; }
+  }
+  
+  @keyframes circle {
+      from { transform: scale(1); }
+      to { transform: scale(0); }
+  }

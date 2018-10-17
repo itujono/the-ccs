@@ -8,4 +8,7 @@ $toscagrad: linear-gradient(65deg, #00b0a8 -25%, #07d3cc 100%);
 $toscagrad-reverse: linear-gradient(65deg, #07d3cc -25%, #00b0a8 100%);
 $fontfamily: 'Nunito', 'Segoe UI', Arial, Helvetica, sans-serif;
 
-$boxShadow: 0 12px 15px 0 rgba(0, 0, 0, 0.1), 0 17px 50px 0 rgba(0, 0, 0, 0.1)
+$boxShadow: 0 12px 15px 0 rgba(0, 0, 0, 0.1), 0 17px 50px 0 rgba(0, 0, 0, 0.1);
+$radius: 55px;
+$circumf: 3.1416 * $radius * 2;
+$check-len: 75px;
