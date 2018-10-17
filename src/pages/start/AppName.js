@@ -20,6 +20,7 @@ class AppName extends React.Component {
     render() {
 
         const { user, handleSaveUserInfo } = this.props
+        const userName = user && user.name.split(" ")[0]
 
         return (
             <Grid.Column width={6}>
@@ -28,7 +29,7 @@ class AppName extends React.Component {
                 </div>
                 <Container>
                     <div className="heading">
-                        <Header as="h2" content={user && `Well done, ${user.name}, sekarang nama online shop nya`} />
+                        <Header as="h2" content={user && `Well done, ${userName}, sekarang nama online shop nya`} />
                         <p>Mau kamu kasih nama apa online shop kamu ini?</p>
                     </div>
                     <Formik

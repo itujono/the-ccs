@@ -13,7 +13,8 @@ const router = (props) => {
         <BrowserRouter>
             <Switch>
                 <Redirect exact from="/features" to="/features/home" />
-                <Route key="start" exact path="/" component={Start} />
+                <Redirect exact from="/" to="/start" />
+                <Route key="start" path="/start" component={Start} />
                 <Route key="features" path="/features/:name" component={Features} />
                 <Route key="summary" path="/summary" component={Summary} />
             </Switch>

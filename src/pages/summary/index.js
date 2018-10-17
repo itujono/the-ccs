@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Button, Container, Header, List, Image, Segment, Label, Icon, Card } from "semantic-ui-react"
+import { Grid, Button, Container, Header, List, Transition, Segment, Label, Icon, Card } from "semantic-ui-react"
 import { Switch, Route, Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
@@ -44,14 +44,14 @@ class Summary extends React.Component {
                                                 </Label>
                                                 <Grid verticalAlign="middle">
                                                     <Grid.Column width={12}>
-                                                        <Card.Group itemsPerRow={2} className="cart-card">
+                                                        <Transition.Group as={Card.Group} animation="fade down" duration={200} itemsPerRow={2} className="cart-card">
                                                             {item.map(sub => (
                                                                 <Card key={sub.id}>
                                                                     <Header as="h4" content={sub.name} />
                                                                     {sub.price}
                                                                 </Card>
                                                             ))}
-                                                        </Card.Group>
+                                                        </Transition.Group>
                                                     </Grid.Column>
                                                     <Grid.Column width={4}>
                                                         <Container textAlign="center">

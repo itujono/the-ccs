@@ -57,7 +57,7 @@ class Appointment extends React.Component {
                                     onSubmit={({ phone }) => {
                                         const { user } = this.props
                                         this.props.onSavePersonalInfo({ ...user, phone})
-                                        this.props.history.push('/summary')
+                                        this.props.history.push('/summary/thankyou')
                                     }}
                                     render={({ values, handleChange, handleSubmit }) => (
                                         <Form onSubmit={handleSubmit} className="main-form mt3em">
