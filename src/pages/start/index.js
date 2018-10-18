@@ -30,6 +30,20 @@ const RouteContainer = Posed.div({
     exit: { opacity: 0, y: 20 }
 })
 
+const GridColumn = Posed.div({
+    enter: { staggerChildren: 100 }
+})
+
+const Div = Posed.div({
+    enter: { y: 0, opacity: 1 },
+    exit: { y: 30, opacity: 0 }
+})
+
+const Butt = Posed.button({
+    enter: { y: 0, opacity: 1, transition: { duration: 100 } },
+    exit: { y: 30, opacity: 0 }
+})
+
 
 class Start extends React.Component {
 
@@ -46,8 +60,8 @@ class Start extends React.Component {
                 <RouteContainer key={location.pathname} columns={4} verticalAlign="middle" className="ui stackable centered padded middle aligned four column grid home">
                     <Switch location={location}>
                         <Route exact path="/start" key="welcome" render={() => (
-                            <Grid.Column computer={6} mobile={16}>
-                                <Container textAlign="center">
+                            <Grid.Column as={GridColumn} computer={6} mobile={16}>
+                                <Container as={Div} textAlign="center">
                                     <Header as="h2" content="Welcome!" className="welcome" />
                                     <p>
                                         Kamu mau bikin online shop? Murah tapi professional? Yang gampang dikelola sendiri? Yang seprofessional online shop - online shop di bawah ini? Serius?
@@ -59,7 +73,7 @@ class Start extends React.Component {
                                 <Card.Group itemsPerRow={5}>
                                 {
                                     images.map(item => (
-                                        <Card key={item.key} image={item.src} />
+                                        <Card as={Div} key={item.key} image={item.src} />
                                     ))
                                 }
                                 </Card.Group>
@@ -68,6 +82,9 @@ class Start extends React.Component {
                         <Route path="/start/email" key="email" render={() => <Personal user={user} handleSaveUserInfo={this.handleSaveUserInfo} />} />
                         <Route path="/start/app_name" key="app_name" render={() => <AppName user={user} handleSaveUserInfo={this.handleSaveUserInfo} />} />
                         <Route path="/start/summary" key="summary" render={() => <Summary user={user} />} />
+                        <div>
+                            <Header as="h4" content="Hello geng!" />
+                        </div>
                     </Switch>
                 </RouteContainer>
             </PoseGroup>

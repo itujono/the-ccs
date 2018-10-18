@@ -10,6 +10,11 @@ import Thankyou from "./Thankyou";
 
 
 class Summary extends React.Component {
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     render() {
 
         const { carts, totalPrice, user, savePersonalInfo } = this.props

@@ -6,20 +6,16 @@ import Summary from "../pages/summary";
 
 
 
-const router = (props) => {
-
-
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Redirect exact from="/features" to="/features/home" />
-                <Redirect exact from="/" to="/start" />
-                <Route key="start" path="/start" component={Start} />
-                <Route key="features" path="/features/:name" component={Features} />
-                <Route key="summary" path="/summary" component={Summary} />
-            </Switch>
-        </BrowserRouter>
-    )
-}
+const router = () => (
+    <BrowserRouter>
+        <Switch>
+            <Redirect exact from="/features" to="/features/home" />
+            <Redirect exact from="/" to="/start" />
+            <Route key="start" path="/start" component={Start} />
+            <Route key="features" path="/features/:name" component={Features} />
+            <Route key="summary" path="/summary" component={Summary} />
+        </Switch>
+    </BrowserRouter>
+)
 
 export default router

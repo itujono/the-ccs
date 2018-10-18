@@ -2,11 +2,19 @@ import React from "react"
 import { Grid, Button, Container, Header, Form, Icon, Message, Transition, Responsive } from "semantic-ui-react"
 import { Link, withRouter } from "react-router-dom"
 import { Formik } from "formik"
-import { tanggal } from "../../common";
-import DatePicker from "react-datepicker";
+import { tanggal } from "../../common"
+import DatePicker from "react-datepicker"
 import moment from "moment"
 import 'react-datepicker/dist/react-datepicker.css'
-import Prompt from "../../components/Prompt";
+import Prompt from "../../components/Prompt"
+import * as yup from "yup"
+
+
+
+
+const phoneSchema = yup.object().shape({
+    phone: yup.string().required("Gak boleh kosong ya nomor HP nya")
+})
 
 
 class Appointment extends React.Component {
@@ -54,12 +62,13 @@ class Appointment extends React.Component {
                                 Oke, karena kamu udah nentuin waktunya, kasih tau kita ya nomer telepon nya supaya bisa kita telfon untuk konfirmasi
                                 <Formik
                                     initialValues={{ phone: '' }}
+                                    validationSchema={phoneSchema}
                                     onSubmit={({ phone }) => {
                                         const { user } = this.props
                                         this.props.onSavePersonalInfo({ ...user, phone})
                                         this.props.history.push('/summary/thankyou')
                                     }}
-                                    render={({ values, handleChange, handleSubmit }) => (
+                                    render={({ values, handleChange, handleSubmit, errors, touched }) => (
                                         <Form onSubmit={handleSubmit} className="main-form mt3em">
                                             <Form.Field>
                                                 <Form.Input
@@ -71,8 +80,9 @@ class Appointment extends React.Component {
                                                     width={12}
                                                     onChange={handleChange}
                                                 />
+                                                { errors.phone && touched.phone && <span className="error-text">{errors.phone}</span> }
                                             </Form.Field>
-                                            <Button type="submit" content="Submit" className="btn-ccs" />
+                                            <Button type="submit" content="Submit" className="btn-ccs" icon="plus" />
                                             <Button type="button" basic className="link-btn" content="Nggak mau" onClick={this.handleShowPrompt} />
                                         </Form>
                                     )}

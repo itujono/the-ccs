@@ -1,12 +1,27 @@
 import React from "react"
 import { Grid, Container, Header, Form, Button } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import { Formik } from "formik";
-import * as yup from "yup";
+import { Formik } from "formik"
+import * as yup from "yup"
+import Posed from "react-pose"
 
 
 const websiteName = yup.object().shape({
     website: yup.string().required("Harus diisi ya nama online shop nya")
+})
+
+const GridColumn = Posed.div({
+    enter: { staggerChildren: 100 }
+})
+
+const Div = Posed.div({
+    enter: { y: 0, opacity: 1 },
+    exit: { y: 30, opacity: 0 }
+})
+
+const Butt = Posed.button({
+    enter: { y: 0, opacity: 1, transition: { duration: 100 } },
+    exit: { y: 30, opacity: 0 }
 })
 
 class AppName extends React.Component {
@@ -23,15 +38,15 @@ class AppName extends React.Component {
         const userName = user && user.name.split(" ")
 
         return (
-            <Grid.Column width={6}>
-                <div className="navigator">
+            <Grid.Column as={GridColumn} width={6}>
+                <Div className="navigator">
                     <Button as={Link} to="/start/email" className="link-btn" basic icon="chevron left" />
-                </div>
+                </Div>
                 <Container>
-                    <div className="heading">
+                    <Div className="heading">
                         <Header as="h2" content={user && `Well done, ${userName.length > 1 ? userName[0] : user.name}, sekarang nama online shop nya`} />
                         <p>Mau kamu kasih nama apa online shop kamu ini?</p>
-                    </div>
+                    </Div>
                     <Formik
                         initialValues={{ website: '' }}
                         onSubmit={(values) => {
@@ -52,7 +67,7 @@ class AppName extends React.Component {
                                 />
                                 { errors.website && touched.website && <span className="error-text">{errors.website}</span> }
                                 <Container style={{ marginTop: '2em' }}>
-                                    <Button type="submit" className="btn-ccs" icon="plus" content="Submit" />
+                                    <Button as={Butt} type="submit" className="btn-ccs" icon="plus" content="Submit" />
                                 </Container>
                             </Form>
                         )}
