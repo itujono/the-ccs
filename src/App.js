@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import store from "./state/store"
 import Router from "./router";
 import "./App.css";
-import { Grid, Header, Segment, Responsive } from "semantic-ui-react";
+import { Grid, Header, Segment, Responsive, Label, Icon } from "semantic-ui-react";
 
 
 
@@ -22,6 +22,7 @@ const App = () => (
 						<Header as="h3"><span className="tosca">c</span>ode</Header>
 						<Header as="h3"><span className="tosca">c</span>ollective</Header>
 						<Header as="h3"><span style={{ color: 'orange' }}>s</span>tudio</Header>
+					<Label circular size="tiny" color="orange"><Icon name="question" /> FAQ</Label>
 					</div>
 				</Responsive>
 				<Router />

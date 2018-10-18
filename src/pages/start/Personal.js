@@ -47,7 +47,7 @@ class Personal extends React.Component {
                     </Div>
                     <Formik
                         initialValues={{ name: user.name ? user.name : '', email: user.email ? user.email : '' }}
-                        onSubmit={({ name, email }, actions) => {
+                        onSubmit={({ name, email }) => {
                             handleSaveUserInfo({ name, email })
                             this.props.history.push('/start/app_name')
                         }}

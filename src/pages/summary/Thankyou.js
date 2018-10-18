@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { Grid, Segment, Header, Container, Button, Responsive } from "semantic-ui-react"
+import Posed from "react-pose"
+import { mobile } from "../../common";
 
 
 const backToHome = (
@@ -15,11 +17,30 @@ const receivedText = (
     </Container>
 )
 
+const GridColumn = Posed.div({
+    enter: { staggerChildren: 100 }
+})
+
+const Div = Posed.div({
+    enter: { y: 0, opacity: 1 },
+    exit: { y: 30, opacity: 0 }
+})
+
+const Butt = Posed.button({
+    enter: { y: 0, opacity: 1, transition: { duration: 100 } },
+    exit: { y: 30, opacity: 0 }
+})
+
+const Par = Posed.p({
+    enter: { y: 0, opacity: 1, transition: { duration: 100 } },
+    exit: { y: 30, opacity: 0 }
+})
+
 
 const Thankyou = () => {
 
     return (
-        <Responsive as={Grid.Column} computer={6} mobile={14}>
+        <Grid.Column as={GridColumn} width={mobile ? 14 : 6}>
             <Segment padded="very" centered className="wizard-success">
                 <svg
                     width="133px"
@@ -36,26 +57,26 @@ const Thankyou = () => {
                         <polyline id="check" stroke="#FFFFFF" strokeWidth="4" points="41 70 56 85 92 49" />
                     </g>
                 </svg>
-                <Container textAlign="center">
+                <Container as={Div} textAlign="center">
                     <Header as="h2" content="Simulasi diterima! 💖" className="tosca" />
-                    <p>
+                    <Par>
                         Great! Simulasi project online shop kamu telah kami terima, dan email berisi detail info simulasi juga udah ada di inbox email kamu.
-                    </p>
-                    <p className="mb2em">Dengan ini, mudah-mudahan kamu tertarik buat napak ke langkah selanjutnya dengan kami ya. See you, then!</p>
+                    </Par>
+                    <Par className="mb2em">Dengan ini, mudah-mudahan kamu tertarik buat napak ke langkah selanjutnya dengan kami ya. See you, then!</Par>
                 </Container>
-                <Container textAlign="center">
+                <Container as={Div} textAlign="center">
                     <Button content="Coba simulasi lagi" icon="chevron left" className="btn-ccs" onClick={() => window.location.replace('/')} />
                 </Container>
             </Segment>
-            <div className="navigator-bottom">
+            <Div className="navigator-bottom">
                 <Button
                     className="link-btn no-hover"
                     basic
                     content={backToHome}
                     onClick={() => window.location.replace('/')}
                 />
-            </div>
-        </Responsive>
+            </Div>
+        </Grid.Column>
     )
 }
 
