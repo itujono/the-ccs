@@ -50,6 +50,8 @@ class Appointment extends React.Component {
 
     handleShowDatepicker = () => this.setState({ datepicker: true })
 
+    handleNextPage = () => this.props.history.push('/summary/thankyou')
+
     render() {
         return (
             <Grid.Column as={GridColumn} width={mobile ? 16 : 8} className="appointment">
@@ -105,26 +107,30 @@ class Appointment extends React.Component {
                             </Container>
                         )}
                     </Transition.Group>
-                    <Prompt
-                        open={this.state.prompt}
-                        onClose={this.handleClosePrompt}
-                        header="Yakin nggak mau kasih nomer HP?"
-                        cancelText="Eh mau deh"
-                        yesText="Iya yakin"
-                        confirm={() => this.props.history.push('/summary/thankyou')}
-                    >
-                        Yakin banget nih ya gak mau kasih nomer HP? Udah paling yakin ni ya?
-                    </Prompt>
-                    <Prompt
-                        open={this.state.promptNotAll}
-                        onClose={this.handleClosePromptNotAll}
-                        header="Yakin?"
-                        cancelText="Eh mau deh"
-                        yesText="Iya yakin"
-                        confirm={() => this.props.history.push('/summary/thankyou')}
-                    >
-                        Yakin banget nih ya gak mau janjian dulu sama kita? Udah paling yakin ni ya?
-                    </Prompt>
+                    <Transition visible={this.state.prompt} unmountOnHide={true} animation="fade down" duration={200}>
+                        <Prompt
+                            // open={this.state.prompt}
+                            onClose={this.handleClosePrompt}
+                            header="Yakin nggak mau kasih nomer HP?"
+                            cancelText="Eh mau deh"
+                            yesText="Iya yakin"
+                            confirm={this.handleNextPage}
+                        >
+                            Yakin banget nih ya gak mau kasih nomer HP? Udah paling yakin ni ya?
+                        </Prompt>
+                    </Transition>
+                    <Transition visible={this.state.promptNotAll} unmountOnHide={true} animation="fade down" duration={200}>
+                        <Prompt
+                            // open={this.state.promptNotAll}
+                            onClose={this.handleClosePromptNotAll}
+                            header="Yakin?"
+                            cancelText="Eh mau deh"
+                            yesText="Iya yakin"
+                            confirm={this.handleNextPage}
+                        >
+                            Yakin banget nih ya gak mau janjian dulu sama kita? Udah paling yakin ni ya?
+                        </Prompt>
+                    </Transition>
                     { this.state.datepicker && <div className="navigator-bottom">
                         <Button onClick={this.handleShowPromptNotAll} basic className="link-btn" icon labelPosition="right" >
                             Nggak sekarang deh

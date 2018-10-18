@@ -22,7 +22,7 @@ const App = () => (
 						<Header as="h3"><span className="tosca">c</span>ode</Header>
 						<Header as="h3"><span className="tosca">c</span>ollective</Header>
 						<Header as="h3"><span style={{ color: 'orange' }}>s</span>tudio</Header>
-					<Label circular size="tiny" color="orange"><Icon name="question" /> FAQ</Label>
+					<Label as="a" href="/about" circular size="tiny" color="orange"><Icon name="question" /> FAQ</Label>
 					</div>
 				</Responsive>
 				<Router />

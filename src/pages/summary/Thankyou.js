@@ -26,11 +26,6 @@ const Div = Posed.div({
     exit: { y: 30, opacity: 0 }
 })
 
-const Butt = Posed.button({
-    enter: { y: 0, opacity: 1, transition: { duration: 100 } },
-    exit: { y: 30, opacity: 0 }
-})
-
 const Par = Posed.p({
     enter: { y: 0, opacity: 1, transition: { duration: 100 } },
     exit: { y: 30, opacity: 0 }

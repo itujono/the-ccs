@@ -15,6 +15,8 @@ class Features extends React.Component {
     state = { initial: true, selectedItem: null, hovered: false }
 
     componentDidMount() {
+        window.scrollTo(0, 0)
+
         const { section, initialSelected, selected, subItems } = this.props
         const { initial } = this.state
 

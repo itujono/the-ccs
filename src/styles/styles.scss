@@ -33,7 +33,7 @@ span.tosca, .header.tosca {
     }
     .header {
         margin: 0;
-        transition: all .3s ease;
+        transition: all 0.3s cubic-bezier(1, -0.33, 0, 1.2);
     }
     .ui.label {
         margin-top: 10px;
@@ -348,5 +348,27 @@ h1, h2, h3, h4, h5, h6 {
                 color: #777 !important;
             }
         }
+    }
+}
+
+.faq {
+    .list {
+        .item {
+            .header {
+                color: white !important;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            .description {
+                color: white !important;
+                line-height: 1.6;
+            }
+            .icon {
+                color: $orangeish !important;
+            }
+        }
+    }
+    .container {
+        margin-bottom: $baseSize * 3;
     }
 }
