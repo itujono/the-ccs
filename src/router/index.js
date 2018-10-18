@@ -7,7 +7,7 @@ import About from "../pages/about"
 
 
 
-const router = () => (
+const router = ({ changeColor, onChangeColor }) => (
     <BrowserRouter>
         <Switch>
             <Redirect exact from="/features" to="/features/home" />
@@ -15,7 +15,7 @@ const router = () => (
             <Route key="start" path="/start" component={Start} />
             <Route key="features" path="/features/:name" component={Features} />
             <Route key="summary" path="/summary" component={Summary} />
-            <Route key="about" path="/about" component={About} />
+            <Route key="about" path="/about" render={() => <About changeColor={changeColor} onChangeColor={onChangeColor} />} />
         </Switch>
     </BrowserRouter>
 )

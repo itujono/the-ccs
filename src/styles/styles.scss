@@ -109,7 +109,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .ui.grid {
     &.main-app {
-        
+        transition: all .4s ease;
+        &.dark {
+            background: $darkBlue !important;
+            transition: all .4s ease;
+        }
     }
     &.home {
         height: 100vh !important;
