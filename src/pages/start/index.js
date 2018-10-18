@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Container, Header, Card, Button } from "semantic-ui-react"
+import { Grid, Container, Header, Image, Button, Segment } from "semantic-ui-react"
 import { connect } from "react-redux"
 import { Switch, Route, Link } from "react-router-dom";
 import { savePersonalInfo } from "../../state/actions/userActions";
@@ -19,9 +19,7 @@ import Summary from "./Summary";
 const images = [
     { key: 1, src: bni },
     { key: 2, src: jne },
-    { key: 3, src: mandiri },
-    { key: 4, src: pos },
-    { key: 5, src: tiki }
+    { key: 3, src: mandiri }
 ]
 
 
@@ -70,13 +68,15 @@ class Start extends React.Component {
                                         <Button as={Link} to="/start/email" className="btn-ccs" content="Mau, dong!" size="big" />
                                     </div>
                                 </Container>
-                                <Card.Group itemsPerRow={5}>
+                                <Segment.Group horizontal>
                                 {
                                     images.map(item => (
-                                        <Card as={Div} key={item.key} image={item.src} />
+                                        <Segment basic as={Div} key={item.key}>
+                                            <Image src={item.src} />
+                                        </Segment>
                                     ))
                                 }
-                                </Card.Group>
+                                </Segment.Group>
                             </Grid.Column>
                         )} />
                         <Route path="/start/email" key="email" render={() => <Personal user={user} handleSaveUserInfo={this.handleSaveUserInfo} />} />

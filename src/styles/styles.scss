@@ -66,6 +66,7 @@ span.tosca, .header.tosca {
         background: $toscagrad;
         padding: $baseSize + .2;
         color: white;
+        border-radius: 8px;
         transition: all .5s ease;
         &:hover {
             background: $toscagrad-reverse
@@ -83,6 +84,10 @@ span.tosca, .header.tosca {
             &:hover {
                 background: transparent !important;
                 text-decoration: underline;
+                color: inherit;
+            }
+            &:focus {
+                background: transparent !important;
                 color: inherit;
             }
             &.no-hover {
@@ -174,6 +179,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: $baseSize * 5;
     .link-btn {
         padding-left: 0 !important;
+        &:hover {
+            text-decoration: none !important;
+        }
     }
 }
 

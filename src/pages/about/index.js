@@ -1,7 +1,10 @@
 import React from "react"
 import { Grid, Button, Header, Container, List, Icon, Rail, Sticky } from "semantic-ui-react"
-import { Link } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
+
+
+const nightText = <span>Night mode &nbsp; 🌙</span>
 
 class About extends React.Component {
 
@@ -33,9 +36,9 @@ class About extends React.Component {
                                 <List.Item>
                                     <Icon name="help" />
                                     <List.Content>
-                                        <List.Header content="Siapa The CSS ini sebenernya?" />
+                                        <List.Header content="Siapa The CCS ini sebenernya?" />
                                         <List.Description>
-                                            Well, lorem ipsum adalah harga yang tepat agar kita bisa seyogyanya memangku jabatan luar dalam di Kanada. Kenapa tidak di rumah? Karena perseteruan antara ikan bobo dan ikan cantik takkan berhenti sampai di persimpangan jalan raya.
+                                            Code Collective Studio (The CCS) adalah web agency berbasis di Batam, Kepulauan Riau, yang baru terbentuk pertengahan 2018. Kita terdiri dari 1 orang Frontend Engineer, 1 orang Backend Engineer, dan 1 orang UI/UX Designer yang udah berteman lama sejak belasan tahun lalu. Setelah kita ngerasa bosen kerja sama orang terus, akhirnya kita sepakat untuk ngebentuk The CCS. Kita cuma pengen supaya orang-orang -- terutama para pelaku bisnis online UKM -- bisa ngerasain punya online shop professional dengan harga yang amat terjangkau. Itu visi dan misi utama kami.
                                         </List.Description>
                                     </List.Content>
                                 </List.Item>
@@ -44,7 +47,7 @@ class About extends React.Component {
                                     <List.Content>
                                         <List.Header content="Kok kalian belum ada portfolio?" />
                                         <List.Description>
-                                            Seperti yang kita bilang tadi, The CCS ini baru terbentuk. Jadi bisa dibilang kita adalah pemain baru di bisnis ini. Oleh karena itu, kenapa kamu nggak coba jadi client pertama kami?
+                                            Seperti yang kita bilang tadi, The CCS ini baru terbentuk. Jadi bisa dibilang kita adalah pemain baru di bisnis ini. Oleh karena itu, kenapa kamu nggak coba jadi client pertama kami? 😉
                                         </List.Description>
                                     </List.Content>
                                 </List.Item>
@@ -80,7 +83,7 @@ class About extends React.Component {
                                     <List.Content>
                                         <List.Header content="Kalian orang jujur gak sih?" />
                                         <List.Description>
-                                            Waduh, serem amat pertanyaannya. 😝 <br /><br />
+                                            Waduh, serem amat pertanyaannya. 😝 <br />
                                             Tapi kata guru-guru kita di SD dulu, kita orang yang jujur kok. Heheh.
                                         </List.Description>
                                     </List.Content>
@@ -156,9 +159,9 @@ class About extends React.Component {
                             </List>
                         </Container>
                         <Rail position="left">
-                            <Sticky context={this.state.contextRef} offset={150} pushing={true} bottomOffset={150}>
+                            <Sticky context={this.state.contextRef} offset={250} pushing={true}>
                                 <Header as="h3" content="Simpan info ini" />
-                                <List bulleted relaxed="very">
+                                <List bulleted relaxed="very" style={{ marginBottom: '2em' }}>
                                     <List.Item>
                                         <List.Header content="Nomor HP" />
                                         <List.Description>+62 821 13 111 668</List.Description>
@@ -172,7 +175,7 @@ class About extends React.Component {
                                         <List.Description>Komp Sempardak di Batam, Kepulauan Riau 29433</List.Description>
                                     </List.Item>
                                 </List>
-                                <Button content={changeColor ? "Normal mode" : "Night mode 🌙"} className="btn-ccs" onClick={onChangeColor} />
+                                <Button content={changeColor ? "Normal mode" : nightText} className="btn-ccs" onClick={onChangeColor} />
                             </Sticky>
                         </Rail>
                     </div>
@@ -185,4 +188,4 @@ class About extends React.Component {
     }
 }
 
-export default About
+export default withRouter(About)
