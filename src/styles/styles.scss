@@ -71,9 +71,10 @@ span.tosca, .header.tosca {
         &:hover {
             background: $toscagrad-reverse
         }
-        // &:focus {
-        //     background: transparent !important;
-        // }
+        &.dark {
+            background: $darkBlue;
+            transition: all .4s ease;
+        }
     }
     &.basic {
         color: white !important;

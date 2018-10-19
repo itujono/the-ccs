@@ -82,9 +82,6 @@ class Start extends React.Component {
                         <Route path="/start/email" key="email" render={() => <Personal user={user} handleSaveUserInfo={this.handleSaveUserInfo} />} />
                         <Route path="/start/app_name" key="app_name" render={() => <AppName user={user} handleSaveUserInfo={this.handleSaveUserInfo} />} />
                         <Route path="/start/summary" key="summary" render={() => <Summary user={user} />} />
-                        <div>
-                            <Header as="h4" content="Hello geng!" />
-                        </div>
                     </Switch>
                 </RouteContainer>
             </PoseGroup>

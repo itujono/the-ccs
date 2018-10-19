@@ -1,6 +1,7 @@
 import React from "react"
 import { Grid, Button, Header, Container, List, Icon, Rail, Sticky } from "semantic-ui-react"
 import { withRouter } from "react-router-dom"
+import { mobile } from "../../common";
 
 
 
@@ -19,7 +20,7 @@ class About extends React.Component {
 
         return (
             <Grid centered padded className="faq">
-                <Grid.Column width={8}>
+                <Grid.Column width={mobile ? 16 : 8}>
                     <div className="navigator">
                         <Button onClick={this.handleGoBack} className="link-btn" basic icon="chevron left" />
                     </div>
@@ -158,8 +159,8 @@ class About extends React.Component {
                                 </List.Item>
                             </List>
                         </Container>
-                        <Rail position="left">
-                            <Sticky context={this.state.contextRef} offset={250} pushing={true}>
+                        <Rail close position="left">
+                            <Sticky context={this.state.contextRef} offset={250} bottomOffset={250}>
                                 <Header as="h3" content="Simpan info ini" />
                                 <List bulleted relaxed="very" style={{ marginBottom: '2em' }}>
                                     <List.Item>
@@ -175,7 +176,7 @@ class About extends React.Component {
                                         <List.Description>Komp Sempardak di Batam, Kepulauan Riau 29433</List.Description>
                                     </List.Item>
                                 </List>
-                                <Button content={changeColor ? "Normal mode" : nightText} className="btn-ccs" onClick={onChangeColor} />
+                                <Button content={changeColor ? "Normal mode" : nightText} className={`btn-ccs ${changeColor ? '' : 'dark'}`} onClick={onChangeColor} />
                             </Sticky>
                         </Rail>
                     </div>

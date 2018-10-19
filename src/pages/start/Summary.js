@@ -86,10 +86,10 @@ class SummaryHome extends React.Component {
                             </List.Item>
                         </Responsive>
                     </Segment>
+                    <Button as={Link} fluid={mobile} to="/features/home" icon labelPosition='right' className="btn-ccs" floated="right">
+                        Lanjut! <Icon name='chevron right' />
+                    </Button>
                 </Container>
-                <Button as={Link} to="/features/home" icon labelPosition='right' className="btn-ccs" floated="right">
-                    Lanjut! <Icon name='chevron right' />
-                </Button>
             </Grid.Column>
         );
     }

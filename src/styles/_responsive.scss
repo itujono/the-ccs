@@ -26,6 +26,18 @@
             .welcome {
                 font-size: 4em !important;
             }
+            .list {
+                .item {
+                    .image {
+                        display: block !important;
+                        margin: 0 auto !important;
+                        margin-bottom: 8px !important;
+                    }
+                    .content {
+                        text-align: center !important;
+                    }
+                }
+            }
         }
     }
 
@@ -39,4 +51,6 @@
             margin-right: 0 !important;
         }
     }
+
+
 }

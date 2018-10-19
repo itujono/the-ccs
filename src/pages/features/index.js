@@ -12,7 +12,7 @@ import { mobile } from "../../common";
 
 class Features extends React.Component {
 
-    state = { initial: true, selectedItem: null, hovered: false }
+    state = { initial: true, selectedItem: null, hovered: false, activeIndex: 0 }
 
     componentDidMount() {
         window.scrollTo(0, 0)
@@ -21,22 +21,20 @@ class Features extends React.Component {
         const { initial } = this.state
 
         if (section) this.props.fetchInitialItems(initial, section.id, subItems)
-        if (initialSelected && selected) {
-            const initialId = initialSelected.map(item => item.id)
-            const selectedId = selected.map(item => item.id)
-
-            if (initialId[0] !== selectedId[0] && initialId[1] !== selectedId[1]) {
-                this.handleMakeInitial()
-            }
-        }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const { section, initialSelected, selected, subItems } = this.props
-        const { initial } = this.state
+        const { initial, activeIndex } = this.state
         
         if (prevProps.section.id !== section.id ) {
-            if (section) this.props.fetchInitialItems(initial, section.id, subItems)
+
+            this.setState({ activeIndex: 0 })
+
+            if (section) {
+                this.props.fetchInitialItems(initial, section.id, subItems)
+            }
+
             if (initialSelected && selected) {
                 const initialId = initialSelected.map(item => item.id)
                 const selectedId = selected.map(item => item.id)
@@ -46,19 +44,21 @@ class Features extends React.Component {
                 }
             }
         }
-
     }
+
+    handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
     
     handleSelectItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
                 
+        this.setState({ initial: false })
+
         if (selected) {
             this.props.deleteHomeFeatures(selected.id)
         } else {
-            console.log(selectedItem)
             this.props.saveHomeFeatures(selectedItem)
             this.props.fetchFeatures()
-            this.setState({ selectedItem, initial: false })
+            this.setState({ selectedItem })
         }
     }
     
@@ -68,7 +68,7 @@ class Features extends React.Component {
         const { section: { id }, section, subItems } = this.props
         const hasSubItems = subItems && subItems[0] !== undefined        
 
-        this.props.makeInitial(id, hasSubItems)
+        this.props.makeInitial(id, subItems)
         this.setState({ initial: true })
     }
 
@@ -171,7 +171,7 @@ class Features extends React.Component {
 
     render() {
         const { selected, features, section, subItems, nextSection } = this.props
-        const { selectedItem } = this.state
+        const { selectedItem, activeIndex } = this.state
         const hasSubItems = subItems && subItems[0] !== undefined
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
@@ -211,7 +211,13 @@ class Features extends React.Component {
                         </Container>
                         <Container>
                             {
-                                hasSubItems ? <Tab menu={{ secondary: true }} panes={this.renderTab()} className="tabbed-cards" /> : (
+                                hasSubItems ? <Tab
+                                    menu={{ secondary: true }}
+                                    panes={this.renderTab()}
+                                    onTabChange={this.handleTabChange}
+                                    activeIndex={activeIndex}
+                                    className="tabbed-cards"
+                                /> : (
                                 <Card.Group itemsPerRow={mobile ? 2 : 3}>
                                 {
                                     features && features.map((item) => {
@@ -260,7 +266,7 @@ const mapState = ({ home, cart }, ownProps) => {
         selected: home.selected,
         features: section.items,
         sectionName,
-        allSections: home.allSections,
+        allSections,
         nextSection,
         subItems,
         section,
