@@ -28,7 +28,7 @@ class Features extends React.Component {
         const { initial } = this.state
         
         if (prevProps.section.id !== section.id ) {
-
+            window.scrollTo(0, 0)
             this.setState({ activeIndex: 0 })
 
             if (section) {
@@ -50,12 +50,13 @@ class Features extends React.Component {
     
     handleSelectItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
-                
-        this.setState({ initial: false })
+        const required = this.props.required && this.props.required.find(item => item.id === selectedItem.id)
 
-        if (selected) {
-            this.props.deleteHomeFeatures(selected.id)
-        } else {
+        if (required) return
+        else this.setState({ initial: false })
+
+        if (selected) this.props.deleteHomeFeatures(selected.id)
+        else {
             this.props.saveHomeFeatures(selectedItem)
             this.props.fetchFeatures()
             this.setState({ selectedItem })
@@ -169,7 +170,7 @@ class Features extends React.Component {
     }
 
     render() {
-        const { selected, features, section, subItems, nextSection } = this.props
+        const { selected, features, section, subItems, nextSection, required } = this.props
         const { selectedItem, activeIndex } = this.state
         const hasSubItems = subItems && subItems[0] !== undefined
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
@@ -221,15 +222,16 @@ class Features extends React.Component {
                                 {
                                     features && features.map((item) => {
                                         const inArray = selected && selected.find(sel => sel.id === item.id)
+                                        const requiredItems = required && required.find(req => req.id === item.id)
 
                                         return <CardItem
                                             item={item}
                                             inArray={inArray}
                                             key={item.id}
-                                            hovered={this.state.hovered}
                                             hasSubItems={hasSubItems}
                                             subItems={subItems}
                                             selectedItem={selectedItem}
+                                            required={requiredItems}
                                             handleSelectItem={this.handleSelectItem}
                                         />
                                     })
@@ -255,6 +257,7 @@ const mapState = ({ home, cart }, ownProps) => {
     }
 
     const initialSelected = section && section.items && section.items.filter(item => item.default)
+    const required = section && section.items && section.items.filter(item => item.required)
     const subItems = section && section.items && section.items.map(feat => feat.subitems)
     const nextSectionId = allSections && allSections.filter(sect => sect.id === section.id)[0].id + 1
     const nextSection = allSections && allSections.filter(section => section.id === nextSectionId).map(item => item.name)[0]
@@ -269,6 +272,7 @@ const mapState = ({ home, cart }, ownProps) => {
         nextSection,
         subItems,
         section,
+        required,
         initialSelected
     }
 }

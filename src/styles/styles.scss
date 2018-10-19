@@ -67,13 +67,13 @@ span.tosca, .header.tosca {
         padding: $baseSize + .2;
         color: white;
         border-radius: 8px;
-        transition: all .5s ease;
+        transition: all .2s ease;
         &:hover {
             background: $toscagrad-reverse
         }
         &.dark {
             background: $darkBlue;
-            transition: all .4s ease;
+            transition: all .3s ease;
         }
     }
     &.basic {
@@ -231,11 +231,28 @@ h1, h2, h3, h4, h5, h6 {
                 &::before {
                     content: '✔';
                     margin-right: 6px;
-                    color: orange;
+                    color: #ffa500;
                 }
             }
             .description, .meta {
                 color: #eee !important;
+            }
+            &.required {
+                background: transparent !important;
+                border: 2px solid #ddd;
+                cursor: default;
+                opacity: .6;
+                .header {
+                    color: #ddd !important;
+                    &::before {
+                        content: '✔';
+                        margin-right: 6px;
+                        color: #ddd;
+                    }
+                }
+                .description, .meta {
+                    color: #ddd !important;
+                }
             }
         }
         &.no-click {
@@ -328,7 +345,7 @@ h1, h2, h3, h4, h5, h6 {
             padding-bottom: $baseSize * 2 !important;
             .ui.label {
                 left: 8.65% !important;
-                border-color: orange !important;
+                border-color: #ffa500 !important;
                 background: $tosca !important;
                 box-shadow: 1px 4px 7px rgba(0, 0, 0, .08);
                 .icon {
