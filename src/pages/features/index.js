@@ -51,8 +51,9 @@ class Features extends React.Component {
     handleSelectItem = (selectedItem) => {
         const selected = this.props.selected && this.props.selected.find(item => item.id === selectedItem.id)
         const required = this.props.required && this.props.required.find(item => item.id === selectedItem.id)
+        const subRequired = this.props.subItemsRequired && this.props.subItemsRequired.find(item => item.id === selectedItem.id)
 
-        if (required) return
+        if (required || subRequired) return
         else this.setState({ initial: false })
 
         if (selected) this.props.deleteHomeFeatures(selected.id)
@@ -139,7 +140,7 @@ class Features extends React.Component {
     }
 
     renderTab = () => {
-        const { features, selected, subItems } = this.props
+        const { features, selected, subItemsRequired } = this.props
         const { selectedItem } = this.state
 
         const tabbed = features && features.map(item => ({
@@ -149,6 +150,7 @@ class Features extends React.Component {
                     {
                         item.subitems.map(sub => {
                             const inArray = selected && selected.find(sel => sel.id === sub.id)
+                            const subRequired = subItemsRequired && subItemsRequired.find(req => req.id === sub.id)
 
                             return (
                                 <CardItem
@@ -156,6 +158,7 @@ class Features extends React.Component {
                                     inArray={inArray}
                                     key={sub.id}
                                     selectedItem={selectedItem}
+                                    subItemsRequired={subRequired}
                                     handleSelectItem={this.handleSelectItem}
                                 />
                             )
@@ -223,6 +226,7 @@ class Features extends React.Component {
                                     features && features.map((item) => {
                                         const inArray = selected && selected.find(sel => sel.id === item.id)
                                         const requiredItems = required && required.find(req => req.id === item.id)
+                                        // const subRequired = subItemsRequired && subItemsRequired.find(req => req.id === item.id)
 
                                         return <CardItem
                                             item={item}
@@ -232,6 +236,7 @@ class Features extends React.Component {
                                             subItems={subItems}
                                             selectedItem={selectedItem}
                                             required={requiredItems}
+                                            // subItemsRequired={subRequired}
                                             handleSelectItem={this.handleSelectItem}
                                         />
                                     })
@@ -259,6 +264,7 @@ const mapState = ({ home, cart }, ownProps) => {
     const initialSelected = section && section.items && section.items.filter(item => item.default)
     const required = section && section.items && section.items.filter(item => item.required)
     const subItems = section && section.items && section.items.map(feat => feat.subitems)
+    const subItemsRequired = section && section.items && section.items.map(feat => feat.subitems).flat().filter(item => item.required)
     const nextSectionId = allSections && allSections.filter(sect => sect.id === section.id)[0].id + 1
     const nextSection = allSections && allSections.filter(section => section.id === nextSectionId).map(item => item.name)[0]
 
@@ -273,6 +279,7 @@ const mapState = ({ home, cart }, ownProps) => {
         subItems,
         section,
         required,
+        subItemsRequired,
         initialSelected
     }
 }

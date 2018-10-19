@@ -1,13 +1,13 @@
 import React from "react"
-import { Card, Checkbox, Popup } from "semantic-ui-react";
+import { Card, Popup } from "semantic-ui-react";
 
 
-const CardItem = ({ item, className, handleSelectItem, inArray, required }) => {
+const CardItem = ({ item, className, handleSelectItem, inArray, required, subItemsRequired }) => {
 
     const cardClass = `card-item ${className ? className : ''} ${inArray ? 'selected' : ''}`
-    const cardReq = `card-item ${className ? className : ''} ${inArray ? 'selected' : ''} ${required ? 'required' : ''}`
+    const cardReq = `card-item ${className ? className : ''} ${inArray ? 'selected' : ''} ${required || subItemsRequired ? 'required' : ''}`
 
-    if (required) {
+    if (required || subItemsRequired) {
         return <Popup
             trigger={
                 <Card onClick={() => handleSelectItem(item)} className={cardReq}>
