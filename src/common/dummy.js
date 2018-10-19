@@ -95,7 +95,7 @@ const features = [
                     { id: 191, parent: "Email templates", name: 'Register done', price: 400000, required: true, description: "Data ongkir ditampilkan dengan sempurna dan segalanya ada", default: true },
                     { id: 192, parent: "Email templates", name: 'Account activated', price: 400000, required: true, description: "Ekspedisi TIKI", default: true },
                     { id: 193, parent: "Email templates", name: 'Request forgot password', price: 400000, required: true, description: "Ekspedisi JNE", default: true },
-                    { id: 194, parent: "Email templates", name: 'Password changed done', price: 400000, required: true, description: "Ekspedisi Pos Indonesia", default: false },
+                    { id: 194, parent: "Email templates", name: 'Password changed done', price: 400000, required: false, description: "Ekspedisi Pos Indonesia", default: false },
                     { id: 195, parent: "Email templates", name: 'Order made', price: 400000, required: false, description: "Ekspedisi Si Cepat", default: false },
                     { id: 196, parent: "Email templates", name: 'Konfirmasi pembayaran order done', price: 400000, required: false, description: "Ekspedisi Lion Parcel", default: false },
                     { id: 197, parent: "Email templates", name: 'Konfirmasi deposit', price: 400000, required: false, description: "Ekspedisi JNT", default: false },
