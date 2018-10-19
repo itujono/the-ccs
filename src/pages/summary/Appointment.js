@@ -67,8 +67,8 @@ class Appointment extends React.Component {
                                 inline
                                 selected={this.state.startDate}
                                 onSelect={this.handleChangeDate}
-                                // dateFormat="LLL"
-                                // minDate={moment()}
+                                dateFormat="LLL"
+                                minDate={moment()}
                             /> : (
                             <Container>
                                 <Message as={Div} color="orange">
