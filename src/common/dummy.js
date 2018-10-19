@@ -108,9 +108,10 @@ const features = [
                 name: "Login methods",
                 description: "Page milih metode login untuk user",
                 subitems: [
-                    { id: 201, parent: "Login methods", name: 'Facebook', price: 1300000, description: "Login via Facebook", default: false },
-                    { id: 202, parent: "Login methods", name: 'Twitter', price: 1000000, description: "Login via Twitter", default: false },
-                    { id: 203, parent: "Login methods", name: 'One-time password', price: 2400000, description: "Login via one-time password", default: false }
+                    { id: 201, parent: "Login methods", name: 'Email-password', price: 800000, description: "Login dengan kombinasi email dan password", default: true },
+                    { id: 202, parent: "Login methods", name: 'Facebook', price: 1300000, description: "Login via Facebook", default: false },
+                    { id: 203, parent: "Login methods", name: 'Twitter', price: 1000000, description: "Login via Twitter", default: false },
+                    { id: 204, parent: "Login methods", name: 'One-time password', price: 2400000, description: "Login via one-time password", default: false }
                 ]
             },
             {
@@ -118,8 +119,8 @@ const features = [
                 name: "Desain UI",
                 description: "Kamu mau siapa yang desain UI dan UX online shop nya?",
                 subitems: [
-                    { id: 211, parent: "Desain UI", name: 'Dari The CSS', price: 6500000, description: "Ringkasan data pesanan user", default: true },
-                    { id: 212, parent: "Desain UI", name: 'Saya udah punya', price: 2000000, description: "Ringkasan data pesanan user", default: false }
+                    { id: 211, parent: "Desain UI", name: 'Dari The CSS', price: 6500000, description: "User interface online shop", default: true },
+                    { id: 212, parent: "Desain UI", name: 'Saya udah punya', price: 1000000, description: "User interface online shop", default: false }
                 ]
             },
             {
@@ -128,7 +129,7 @@ const features = [
                 description: "Kamu mau siapa yang desain logo online shop nya?",
                 subitems: [
                     { id: 221, parent: "Logo Online Shop", name: 'Dari The CSS', price: 3000000, description: "Logo & branding online shop", default: true },
-                    { id: 222, parent: "Logo Online Shop", name: 'Saya udah punya', price: 500000, description: "Logo & branding online shop", default: false }
+                    { id: 222, parent: "Logo Online Shop", name: 'Saya udah punya', price: 0, description: "Logo & branding online shop", default: false }
                 ]
             }
         ],

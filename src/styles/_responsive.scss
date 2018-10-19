@@ -2,6 +2,13 @@
 
 
 @media screen and (max-width: 767px) {
+
+    .row {
+        &.mobile-reversed {
+            flex-direction: column-reverse !important;
+        }
+    }
+
     .ui.form {
         &.main-form {
             > .container {
@@ -14,12 +21,39 @@
         padding-left: 10px;
     }
 
+    .column {
+        .wizard-success {
+            padding: $baseSize !important;
+            padding-bottom: $baseSize * 1.5 !important;
+        }
+    }
+
+    .sidebar {
+        .next-page {
+            margin-top: $baseSize * 3 !important;
+            margin-bottom: $baseSize !important;
+            text-align: center;
+            .button {
+                display: block !important;
+                width: 100%;
+            }
+        }
+    }
+
     .ui.grid {
         &.page-features {
             .tabbed-cards {
                 .ui.menu {
                     overflow-x: scroll;
                 }
+            }
+            .cards {
+                .card-item {
+                    width: 100% !important;
+                }
+            }
+            .container {
+                margin: 0 !important;
             }
         }
         &.home {

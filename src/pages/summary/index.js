@@ -1,6 +1,6 @@
 import React from "react"
 import { Grid, Button, Container, Header, List, Transition, Segment, Label, Icon, Card, Responsive } from "semantic-ui-react"
-import { Switch, Route, Link } from "react-router-dom"
+import { Switch, Route, Link, withRouter } from "react-router-dom"
 import { connect } from "react-redux"
 import { saveHomeFeatures } from "../../state/actions/homeActions"
 import { saveCartItems } from "../../state/actions/cartActions"
@@ -36,6 +36,11 @@ class Summary extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0)
+        const { totalPrice } = this.props
+        
+        if (totalPrice === 0) {
+            this.props.history.push('/features')
+        }
     }
 
     render() {
@@ -125,4 +130,4 @@ const mapState = ({ cart, user }) => {
 }
 
 
-export default connect(mapState, { saveHomeFeatures, saveCartItems, savePersonalInfo })(Summary)
+export default connect(mapState, { saveHomeFeatures, saveCartItems, savePersonalInfo })(withRouter(Summary))

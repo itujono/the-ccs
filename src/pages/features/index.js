@@ -17,15 +17,15 @@ class Features extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0)
 
-        const { section, initialSelected, selected, subItems } = this.props
+        const { section, subItems } = this.props
         const { initial } = this.state
 
         if (section) this.props.fetchInitialItems(initial, section.id, subItems)
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const { section, initialSelected, selected, subItems } = this.props
-        const { initial, activeIndex } = this.state
+        const { initial } = this.state
         
         if (prevProps.section.id !== section.id ) {
 
@@ -65,8 +65,7 @@ class Features extends React.Component {
     handleBlur = () => this.setState({ expanded: false })
 
     handleMakeInitial = () => {
-        const { section: { id }, section, subItems } = this.props
-        const hasSubItems = subItems && subItems[0] !== undefined        
+        const { section: { id }, subItems } = this.props
 
         this.props.makeInitial(id, subItems)
         this.setState({ initial: true })
@@ -189,7 +188,7 @@ class Features extends React.Component {
                         Silakan pilih fitur-fitur yang kamu mau untuk online shop kamu.
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row reversed="mobile">
+                <Grid.Row className="mobile-reversed">
                     <Sidebar
                         selected={selected}
                         saveTotalCart={this.handleSaveTotalCart}
@@ -218,7 +217,7 @@ class Features extends React.Component {
                                     activeIndex={activeIndex}
                                     className="tabbed-cards"
                                 /> : (
-                                <Card.Group itemsPerRow={mobile ? 2 : 3}>
+                                <Card.Group itemsPerRow={mobile ? 1 : 3}>
                                 {
                                     features && features.map((item) => {
                                         const inArray = selected && selected.find(sel => sel.id === item.id)

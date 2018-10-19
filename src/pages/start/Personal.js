@@ -43,7 +43,7 @@ class Personal extends React.Component {
                 <Container>
                     <Div className="heading">
                         <Header as="h2" content="Oke mari kita mulai" />
-                        <p>Silakan masukin sedikit info tentang kamu, supaya Cina nggak bisa nyerang Irak</p>
+                        <p>Silakan masukin sedikit info tentang kamu, supaya kita ngerasa agak lebih akrab</p>
                     </Div>
                     <Formik
                         initialValues={{ name: user.name ? user.name : '', email: user.email ? user.email : '' }}

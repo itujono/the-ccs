@@ -35,7 +35,7 @@ const Par = Posed.p({
 const Thankyou = () => {
 
     return (
-        <Grid.Column as={GridColumn} width={mobile ? 14 : 6}>
+        <Grid.Column as={GridColumn} width={mobile ? 16 : 6}>
             <Segment padded="very" centered className="wizard-success">
                 <svg
                     width="133px"
