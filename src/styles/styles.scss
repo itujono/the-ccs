@@ -309,6 +309,26 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+.temporary-total {
+    .ui.accordion {
+        background: transparent !important;
+        border: 2px solid $tosca;
+        border-radius: 9px;
+        .title {
+            color: white !important;
+        }
+        .content {
+            .header {
+                color: white !important;
+                margin-bottom: .5em;
+            }
+            .description {
+                color: white !important;
+            }
+        }
+    }
+}
+
 .tabbed-cards {
     .ui.segment {
         background: transparent;

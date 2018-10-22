@@ -12,7 +12,7 @@ import { mobile } from "../../common";
 
 class Features extends React.Component {
 
-    state = { initial: true, selectedItem: null, hovered: false, activeIndex: 0 }
+    state = { initial: true, selectedItem: null, hovered: false, activeIndex: 0, accordion: false }
 
     componentDidMount() {
         window.scrollTo(0, 0)
@@ -45,6 +45,8 @@ class Features extends React.Component {
             }
         }
     }
+
+    handleClickAccordion = () => this.setState(prevState => ({ accordion: !prevState.accordion }))
 
     handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
     
@@ -125,18 +127,30 @@ class Features extends React.Component {
         ))
 
         return this.state.initial ? initialFeatures : selectedFeatures
-
     }
 
-    handleSaveTotalCart = (total) => {
+    handleSaveTotalCart = () => {
         const { nextSection, selected, section: { name } } = this.props
         const url = name === 'Additional' ? "/summary" : `/features/${nextSection.toLowerCase()}`
+        const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
+
+        const data = {
+            item: selected,
+            section: name,
+            total
+        }
 
         if (selected) {
-            this.props.saveTotalCart(this.props.total + total)
-            this.props.saveCartItems({ item: selected, section: name })
-            this.props.history.push(url)
-        }
+            // if (cartName === name) {
+            //     this.props.saveTotalCart(this.props.total)
+            //     this.props.saveCartItems({ ...data, item: [], total })
+            //     this.props.history.push(url)
+            // } else {
+                this.props.saveTotalCart(this.props.total)
+                this.props.saveCartItems(data)
+                this.props.history.push(url)
+            // }
+        } 
     }
 
     renderTab = () => {
@@ -173,8 +187,8 @@ class Features extends React.Component {
     }
 
     render() {
-        const { selected, features, section, subItems, nextSection, required, subItemsRequired } = this.props
-        const { selectedItem, activeIndex } = this.state
+        const { selected, features, section, subItems, nextSection, required, cart, tempTotal } = this.props
+        const { selectedItem, activeIndex, accordion } = this.state
         const hasSubItems = subItems && subItems[0] !== undefined
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
@@ -199,8 +213,13 @@ class Features extends React.Component {
                         total={total}
                         hasSubItems={hasSubItems}
                         nextSection={nextSection}
+                        section={section}
+                        cart={cart}
+                        tempTotal={tempTotal}
+                        accordion={accordion}
                         renderSelectedHasSubItems={this.handleRenderSelectedHasSubItems}
                         renderSelected={this.handleRenderSelected}
+                        onClickAccordion={this.handleClickAccordion}
                     />
                     <Grid.Column width={10}>
                         <Container textAlign="right" style={{ marginBottom: '2em' }}>
@@ -269,6 +288,8 @@ const mapState = ({ home, cart }, ownProps) => {
         subItemsRequired = section && section.items && section.items.map(feat => feat.subitems).flat().filter(item => item.required)
     }
 
+    const tempTotal = cart && cart.cart.map(item => item.item).flat().map(item => item.price).reduce((acc, curr) => acc + curr,0)
+
     const nextSectionId = allSections && allSections.filter(sect => sect.id === section.id)[0].id + 1
     const nextSection = allSections && allSections.filter(section => section.id === nextSectionId).map(item => item.name)[0]
 
@@ -278,6 +299,7 @@ const mapState = ({ home, cart }, ownProps) => {
         selected: home.selected,
         features: section.items,
         sectionName,
+        tempTotal,
         allSections,
         nextSection,
         subItems,
