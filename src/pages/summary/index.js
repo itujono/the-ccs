@@ -45,7 +45,7 @@ class Summary extends React.Component {
 
     render() {
 
-        const { carts, totalPrice, user, savePersonalInfo, location } = this.props
+        const { carts, totalPrice, user, savePersonalInfo, location, duration, durationTotal } = this.props
 
         return (
             <PoseGroup>
@@ -90,6 +90,7 @@ class Summary extends React.Component {
                                                         <Grid.Column width={4}>
                                                             <Container textAlign="center">
                                                                 Total <Header as="h4" content={`Rp ${price},00`} />
+                                                                Lama pengerjaan <Header as="h4" content={`${duration[idx]} hari`} />
                                                             </Container>
                                                         </Grid.Column>
                                                     </Grid>
@@ -99,6 +100,7 @@ class Summary extends React.Component {
                                     }
                                     <Container className="total-general">
                                         Total Jendral: <Header as="h3" content={`Rp ${totalPrice},00`} />
+                                        Total Durasi: <Header as="h3" content={`${durationTotal} hari`} />
                                         <p>Sekali lagi ingat, ini cuma estimasi loh ya. Heheh.</p>
                                         <Button as={Link} to="/summary/appointment" content="Lanjut ke Appointment" className="btn-ccs" />
                                     </Container>
@@ -119,12 +121,16 @@ const mapState = ({ cart, user }) => {
     const cartSection = cart && cart.cart.map(item => item.section)
     const price = cart && cart.cart.map(item => item.item).map(item => item.price)
     const totalPrice = cart && cart.cart.map(item => item.item).flat().map(item => item.price).reduce((acc, curr) => acc + curr, 0)
+    const duration = cart && cart.cart.map(item => item.duration)
+    const durationTotal = cart && cart.cart.map(item => item.duration).reduce((acc, curr) => acc + curr, 0)
     
     return {
         carts,
         totalPrice,
         cartSection,
         price,
+        duration,
+        durationTotal,
         user: user.user
     }
 }

@@ -130,14 +130,15 @@ class Features extends React.Component {
     }
 
     handleSaveTotalCart = () => {
-        const { nextSection, selected, section: { name } } = this.props
+        const { nextSection, selected, duration, section: { name } } = this.props
         const url = name === 'Additional' ? "/summary" : `/features/${nextSection.toLowerCase()}`
         const total = selected && selected.map(item => item.price).reduce((acc, curr) => acc + curr, 0)
 
         const data = {
             item: selected,
             section: name,
-            total
+            total,
+            duration
         }
 
         if (selected) {
@@ -289,6 +290,7 @@ const mapState = ({ home, cart }, ownProps) => {
     }
 
     const tempTotal = cart && cart.cart.map(item => item.item).flat().map(item => item.price).reduce((acc, curr) => acc + curr,0)
+    const duration = home.selected && home.selected.map(item => item.duration).reduce((acc, curr) => acc + curr, 0)
 
     const nextSectionId = allSections && allSections.filter(sect => sect.id === section.id)[0].id + 1
     const nextSection = allSections && allSections.filter(section => section.id === nextSectionId).map(item => item.name)[0]
@@ -304,6 +306,7 @@ const mapState = ({ home, cart }, ownProps) => {
         nextSection,
         subItems,
         section,
+        duration,
         required,
         subItemsRequired,
         initialSelected

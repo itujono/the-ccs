@@ -359,6 +359,9 @@ h1, h2, h3, h4, h5, h6 {
                 margin-top: $baseSize * 3;
                 margin-bottom: $baseSize;
             }
+            .ui.header {
+                margin-top: 0 !important;
+            }
         }
         .main-segment {
             margin-bottom: $baseSize * 3 !important;
@@ -373,6 +376,11 @@ h1, h2, h3, h4, h5, h6 {
                 }
             }
             .ui.grid {
+                .column {
+                    .ui.header {
+                        margin-top: 0 !important;
+                    }
+                }
                 .column:last-child {
                     padding-left: $baseSize * 2;
                     border-left: 1px solid rgba($color: black, $alpha: .1);
