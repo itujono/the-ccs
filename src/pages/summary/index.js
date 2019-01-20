@@ -45,7 +45,7 @@ class Summary extends React.Component {
 
     render() {
 
-        const { carts, totalPrice, user, savePersonalInfo, location, duration, durationTotal } = this.props
+        const { carts, totalPrice, user, savePersonalInfo, location, duration, durationTotal, month } = this.props
 
         return (
             <PoseGroup>
@@ -100,7 +100,7 @@ class Summary extends React.Component {
                                     }
                                     <Container className="total-general">
                                         Total Jendral: <Header as="h3" content={`Rp ${totalPrice},00`} />
-                                        Total Durasi: <Header as="h3" content={`${durationTotal} hari`} />
+                                        Total Durasi: <Header as="h3" content={`${durationTotal} hari (${month} bulan)`} />
                                         <p>Sekali lagi ingat, ini cuma estimasi loh ya. Heheh.</p>
                                         <Button as={Link} to="/summary/appointment" content="Lanjut ke Appointment" className="btn-ccs" />
                                     </Container>
@@ -123,6 +123,7 @@ const mapState = ({ cart, user }) => {
     const totalPrice = cart && cart.cart.map(item => item.item).flat().map(item => item.price).reduce((acc, curr) => acc + curr, 0)
     const duration = cart && cart.cart.map(item => item.duration)
     const durationTotal = cart && cart.cart.map(item => item.duration).reduce((acc, curr) => acc + curr, 0)
+    const month = (durationTotal / 30).toFixed(2)
     
     return {
         carts,
@@ -130,6 +131,7 @@ const mapState = ({ cart, user }) => {
         cartSection,
         price,
         duration,
+        month,
         durationTotal,
         user: user.user
     }

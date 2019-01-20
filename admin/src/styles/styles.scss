@@ -1,0 +1,108 @@
+@import '~antd/dist/antd.css';
+@import './settings';
+
+
+
+body {
+    font-family: $fontFamily !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $fontFamily !important;
+}
+
+
+.App {
+    min-height: 100vh;
+    background: #fafafa;
+}
+
+.ant-layout {
+    .header {
+        &.ant-layout-header {
+            background: $blueish;
+            padding: 0 6em;
+        }
+    }
+    .ant-layout-content {
+        padding: 2em 6em;
+    }
+}
+
+.ant-btn {
+    &.btn-ccs {
+        background: $blueish;
+        border: 1px solid $blueish;
+        height: 38px;
+        font-weight: bold;
+        font-family: $fontFamily;
+    }
+}
+
+.logo {
+    background: url("../logo.svg");
+}
+
+.avatar-header {
+    text-align: right;
+}
+
+
+.heading {
+    margin-bottom: $baseSize * 2;
+    h2 {
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+}
+
+.main-row {
+    min-height: 100vh;
+}
+
+.main-form {
+    .ant-input {
+        height: 38px;
+        border: 2px solid #ddd;
+    }
+}
+
+.ant-dropdown {
+    width: 10%;
+    .ant-dropdown-menu-item {
+        display: flex;
+        align-items: center;
+        > a {
+            width: 100%;
+        }
+    }
+}
+
+.dashboard {
+    .heading {
+        h2 {
+            color: $tosca;
+            font-weight: bold;
+        }
+    }
+    .ant-card {
+        height: 120px;
+        .ant-card-body {
+            padding: 1em;
+            display: flex;
+            align-items: center;
+            h3 {
+                color: $tosca;
+                flex: 1;
+                font-size: 3em;
+                margin-bottom: 0;
+            }
+            .ant-list-item-meta {
+                flex: 2;
+                .ant-list-item-meta-title {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
